@@ -1,0 +1,14 @@
+.foundation {
+  width: min(100% - var(--space-6), 36rem);
+  margin: var(--space-8) auto;
+  padding: var(--space-6);
+}
+
+.foundation h1 {
+  font-size: var(--font-size-heading);
+  font-weight: var(--font-weight-heading);
+}
+
+.foundation p {
+  line-height: var(--line-height-body);
+}

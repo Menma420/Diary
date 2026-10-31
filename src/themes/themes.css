@@ -1,0 +1,61 @@
+/* Generated from tokens.json by pnpm tokens:generate. */
+:root,
+[data-theme="sakura-pink"] {
+  --color-background: #F7EAF1;
+  --color-paper: #FFFCFA;
+  --color-paper-border: #E8D5E0;
+  --color-line: #F1E5EB;
+  --color-text: #765E70;
+  --color-muted-text: #795F71;
+  --color-accent: #E7A4C1;
+  --color-accent-secondary: #D98DB5;
+  --color-accent-strong: #884361;
+  --color-accent-foreground: #FFFFFF;
+  --color-focus-ring: #884361;
+  --shadow-paper: 0 0.5rem 2rem rgb(118 94 112 / 8%);
+}
+
+[data-theme="dreamy-sky"] {
+  --color-background: #DDF2F5;
+  --color-paper: #FFFEFC;
+  --color-paper-border: #BFDCE2;
+  --color-line: #DCECEF;
+  --color-text: #526C76;
+  --color-muted-text: #536B74;
+  --color-accent: #8CCDD7;
+  --color-accent-secondary: #A5DDE0;
+  --color-accent-strong: #27616F;
+  --color-accent-foreground: #FFFFFF;
+  --color-focus-ring: #27616F;
+  --shadow-paper: 0 0.5rem 2rem rgb(82 108 118 / 8%);
+}
+
+[data-theme="lavender-dreams"] {
+  --color-background: #EEE8F7;
+  --color-paper: #FFFCFF;
+  --color-paper-border: #D7C9E6;
+  --color-line: #E9E1F0;
+  --color-text: #695B7D;
+  --color-muted-text: #6F607F;
+  --color-accent: #BCA9D9;
+  --color-accent-secondary: #D1B9E9;
+  --color-accent-strong: #675087;
+  --color-accent-foreground: #FFFFFF;
+  --color-focus-ring: #675087;
+  --shadow-paper: 0 0.5rem 2rem rgb(105 91 125 / 8%);
+}
+
+[data-theme="vintage-journal"] {
+  --color-background: #F1E9DA;
+  --color-paper: #FFFDF5;
+  --color-paper-border: #D9CBB2;
+  --color-line: #EAE1CF;
+  --color-text: #6C5A48;
+  --color-muted-text: #705D49;
+  --color-accent: #B99A76;
+  --color-accent-secondary: #D6B995;
+  --color-accent-strong: #735338;
+  --color-accent-foreground: #FFFFFF;
+  --color-focus-ring: #735338;
+  --shadow-paper: 0 0.5rem 2rem rgb(108 90 72 / 8%);
+}

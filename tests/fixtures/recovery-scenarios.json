@@ -1,0 +1,6 @@
+[
+  { "scenario": "reload-after-local-commit", "owner": "synthetic-owner-a", "date": "2026-10-30", "writer": "synthetic-tab-a", "localText": "Synthetic draft A\n第二行 🌸", "serverVersion": 2, "baseVersion": 2, "localRevision": 3 },
+  { "scenario": "server-advanced", "owner": "synthetic-owner-a", "date": "2026-10-31", "writer": "synthetic-tab-b", "localText": "Synthetic unresolved draft B", "serverVersion": 5, "baseVersion": 4, "localRevision": 2 },
+  { "scenario": "acknowledgement-during-new-edit", "owner": "synthetic-owner-a", "date": "2026-10-31", "writer": "synthetic-tab-a", "localText": "Synthetic newer revision", "serverVersion": 6, "baseVersion": 5, "localRevision": 9, "acknowledgedLocalRevision": 8 },
+  { "scenario": "cleared-entry", "owner": "synthetic-owner-a", "date": "2026-10-29", "writer": "synthetic-tab-a", "localText": "", "serverVersion": 1, "baseVersion": 1, "localRevision": 2 }
+]

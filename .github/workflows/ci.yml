@@ -1,0 +1,63 @@
+name: Foundation checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: foundation-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  foundation:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    env:
+      NEXT_TELEMETRY_DISABLED: "1"
+      APP_ORIGIN: http://127.0.0.1:3100
+      DEFAULT_TIMEZONE: Asia/Kolkata
+      # Synthetic sentinels, never a real provider/account or production secrets.
+      SUPABASE_URL: https://phase1-private-config.example.invalid
+      SUPABASE_PUBLISHABLE_KEY: phase1-browser-leak-sentinel
+      OWNER_USER_ID: 11111111-1111-4111-8111-111111111111
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.8.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - name: Install locked dependencies
+        run: pnpm install --frozen-lockfile
+      - name: Validate server configuration
+        run: pnpm env:check --integrations
+      - name: Verify generated theme CSS
+        run: pnpm tokens:check
+      - name: Lint
+        run: pnpm lint
+      - name: Type check
+        run: pnpm typecheck
+      - name: Unit and component tests
+        run: pnpm test
+      - name: Production build
+        run: pnpm build
+      - name: Verify server configuration is absent from client output
+        run: pnpm check:client
+      - name: Install Chromium
+        run: pnpm exec playwright install --with-deps chromium
+      - name: Production browser tests
+        run: pnpm test:e2e
+      - name: Upload synthetic browser failure evidence
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: foundation-browser-report
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7
