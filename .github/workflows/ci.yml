@@ -25,7 +25,7 @@ jobs:
       OWNER_USER_ID: 11111111-1111-4111-8111-111111111111
     steps:
       - uses: actions/checkout@v4
-      - uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v6.1.0
         with:
           version: 12.8.1
       - uses: actions/setup-node@v4
