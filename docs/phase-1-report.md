@@ -2,6 +2,8 @@
 
 Date: 31 October 2026. Workspace: `/home/menma/Downloads/Diary`. Controlling requirements: approved Dear Diary Consolidated Implementation Baseline v1.1 and the owner's explicit Phase 1 authorization. **Phase 2 has not begun and requires explicit approval.**
 
+Closure addendum (31 October 2026): Phase 1 is closed. Remote `main` points to `e33ec55507b0812c0e9590d8c09445bcb0c62e6c`, and [Foundation checks run 41220902880](https://github.com/Menma420/Diary/actions/runs/41220902880) completed with `success`. This was reverified against GitHub before beginning the separately authorized Phase 2. The sections below preserve the initial Phase 1 handoff record; references to a pending remote gate or Phase 2 approval describe that earlier handoff. Current Phase 2 status is in `phase-2-report.md`.
+
 ## Result and scope
 
 The Next.js App Router foundation, strict TypeScript configuration, four theme token sets, validated server environment boundary, independent checks, and GitHub CI definition are implemented. The root page is a small foundation placeholder. There is no notebook composition, date route, editor, authentication, provider connection, database schema, autosave, IndexedDB adapter, persisted preference, theme selector, or decoration implementation.

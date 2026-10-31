@@ -1,0 +1,183 @@
+[
+  {
+    "name": "desktop",
+    "width": 1053,
+    "height": 662,
+    "browserErrors": [],
+    "overflow": false,
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 1005,
+      "height": 502
+    },
+    "date": {
+      "x": 145,
+      "y": 113,
+      "width": 771,
+      "height": 27
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 949,
+      "height": 230
+    },
+    "lineHeight": "44px",
+    "rules": "100% 44px",
+    "fontFamily": "ui-rounded, \"Trebuchet MS\", Arial, system-ui, sans-serif",
+    "fontWeight": "400",
+    "dateFontWeight": "400"
+  },
+  {
+    "name": "desktop-tall",
+    "width": 1053,
+    "height": 900,
+    "browserErrors": [],
+    "overflow": false,
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 1005,
+      "height": 740
+    },
+    "date": {
+      "x": 145,
+      "y": 113,
+      "width": 771,
+      "height": 27
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 949,
+      "height": 468
+    },
+    "lineHeight": "44px",
+    "rules": "100% 44px",
+    "fontFamily": "ui-rounded, \"Trebuchet MS\", Arial, system-ui, sans-serif",
+    "fontWeight": "400",
+    "dateFontWeight": "400"
+  },
+  {
+    "name": "mobile",
+    "width": 390,
+    "height": 844,
+    "browserErrors": [],
+    "overflow": false,
+    "paper": {
+      "x": 20,
+      "y": 74,
+      "width": 350,
+      "height": 696
+    },
+    "date": {
+      "x": 93,
+      "y": 99,
+      "width": 204,
+      "height": 18.1875
+    },
+    "editor": {
+      "x": 37,
+      "y": 213,
+      "width": 316,
+      "height": 272
+    },
+    "lineHeight": "34px",
+    "rules": "100% 34px",
+    "fontFamily": "ui-rounded, \"Trebuchet MS\", Arial, system-ui, sans-serif",
+    "fontWeight": "400",
+    "dateFontWeight": "400"
+  },
+  {
+    "name": "mobile-320",
+    "width": 320,
+    "height": 740,
+    "browserErrors": [],
+    "overflow": false,
+    "paper": {
+      "x": 20,
+      "y": 91.390625,
+      "width": 280,
+      "height": 551.125
+    },
+    "date": {
+      "x": 93,
+      "y": 116.390625,
+      "width": 134,
+      "height": 18.1875
+    },
+    "editor": {
+      "x": 37,
+      "y": 230.390625,
+      "width": 246,
+      "height": 272
+    },
+    "lineHeight": "34px",
+    "rules": "100% 34px",
+    "fontFamily": "ui-rounded, \"Trebuchet MS\", Arial, system-ui, sans-serif",
+    "fontWeight": "400",
+    "dateFontWeight": "400"
+  },
+  {
+    "name": "landscape",
+    "width": 844,
+    "height": 390,
+    "browserErrors": [],
+    "overflow": false,
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 796,
+      "height": 500
+    },
+    "date": {
+      "x": 145,
+      "y": 113,
+      "width": 562,
+      "height": 27
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 740,
+      "height": 228
+    },
+    "lineHeight": "44px",
+    "rules": "100% 44px",
+    "fontFamily": "ui-rounded, \"Trebuchet MS\", Arial, system-ui, sans-serif",
+    "fontWeight": "400",
+    "dateFontWeight": "400"
+  },
+  {
+    "name": "zoom-200-reflow",
+    "width": 526,
+    "height": 331,
+    "deviceScaleFactor": 2,
+    "browserErrors": [],
+    "overflow": false,
+    "paper": {
+      "x": 20,
+      "y": 74,
+      "width": 486,
+      "height": 500
+    },
+    "date": {
+      "x": 93,
+      "y": 99,
+      "width": 340,
+      "height": 18.1875
+    },
+    "editor": {
+      "x": 37,
+      "y": 213,
+      "width": 452,
+      "height": 272
+    },
+    "lineHeight": "34px",
+    "rules": "100% 34px",
+    "fontFamily": "ui-rounded, \"Trebuchet MS\", Arial, system-ui, sans-serif",
+    "fontWeight": "400",
+    "dateFontWeight": "400"
+  }
+]
