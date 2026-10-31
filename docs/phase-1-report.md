@@ -79,13 +79,14 @@ The foundation requires the application origin. Supabase URL, publishable key an
 | --- | --- |
 | Node/pnpm versions | 24.22.1 / 12.8.1 |
 | `pnpm install --frozen-lockfile --offline` | PASS; lockfile unchanged, resolution skipped |
+| Fresh temporary clone | PASS; 423 packages installed offline from the frozen lockfile; no `.env.local` or pre-existing generated types; integration validation, type generation, production build and client-output scan passed; checkout remained clean |
 | `pnpm peers check` | PASS; no peer dependency issues |
 | `pnpm env:check` with safe example | PASS; values redacted |
 | `pnpm env:check --integrations` without provider settings | Expected FAIL, exit 1; lists all three missing integration fields and no values |
 | `pnpm tokens:check` | PASS; generated CSS matches canonical tokens |
 | `pnpm lint` | PASS; zero warnings/errors after compatibility/unused-variable fixes |
 | `pnpm typecheck` | PASS; Next route type generation and strict TypeScript check |
-| `pnpm test` | PASS; 3 files, 15 tests, no skips; environment rejection/redaction, all-theme contrast, honest foundation component |
+| `pnpm test` | PASS; 3 files, 16 tests, no skips; environment rejection/redaction (including malformed URLs), all-theme contrast, honest foundation component |
 | `pnpm build` with synthetic server sentinels | PASS; compiled, checked TypeScript, prerendered `/` and `/_not-found` |
 | `pnpm check:client` after sentinel build | PASS; 26 static/HTML/RSC outputs checked; no sentinel leaks |
 | `pnpm test:e2e` against production build | PASS; 4 tests across desktop Chromium and 320 px mobile Chromium; no overflow, no editor/false Saved, CSS delivery and DOM leak assertions |

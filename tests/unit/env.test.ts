@@ -37,4 +37,10 @@ describe("server environment boundary", () => {
     expect(() => parseIntegrationEnvironment({ ...integration, OWNER_USER_ID })).toThrow("OWNER_USER_ID");
     expect(parseServerEnvironment({ ...foundation, UNRELATED_SECRET: "never-return" })).not.toHaveProperty("UNRELATED_SECRET");
   });
+
+  it("redacts malformed URLs rather than allowing URL constructor errors to escape", () => {
+    const APP_ORIGIN = "sensitive-invalid-origin";
+    expect(() => parseServerEnvironment({ APP_ORIGIN })).toThrow("Invalid server environment: APP_ORIGIN.");
+    expect(() => parseServerEnvironment({ APP_ORIGIN })).not.toThrow(APP_ORIGIN);
+  });
 });
