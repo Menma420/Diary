@@ -1,0 +1,133 @@
+{
+  "date": "2026-11-01",
+  "baseCommit": "1fa865fbfd628837aea79742e4d3bd69ca1712a7",
+  "branch": "main",
+  "scope": "Owner-authorized Phase 5 publication: final pre-commit verification snapshot",
+  "commands": [
+    {
+      "command": "pnpm install --frozen-lockfile",
+      "exitCode": 0,
+      "result": "Lockfile current; supply-chain policy verification passed"
+    },
+    {
+      "command": "pnpm env:check --integrations",
+      "exitCode": 0,
+      "result": "CI compatibility check with synthetic integration values; values withheld"
+    },
+    {
+      "command": "pnpm tokens:check",
+      "exitCode": 0,
+      "result": "Theme CSS matches canonical tokens"
+    },
+    {
+      "command": "pnpm lint",
+      "exitCode": 0,
+      "warnings": 0
+    },
+    {
+      "command": "pnpm typecheck",
+      "exitCode": 0,
+      "result": "Route generation and strict TypeScript passed"
+    },
+    {
+      "command": "pnpm test",
+      "exitCode": 0,
+      "files": 10,
+      "passed": 148,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "command": "pnpm test:auth",
+      "exitCode": 0,
+      "passed": 13,
+      "failed": 0,
+      "skipped": 0,
+      "database": "Disposable loopback TLS PostgreSQL 14.24; separate restricted runtime role"
+    },
+    {
+      "command": "pnpm build",
+      "exitCode": 0,
+      "result": "Optimized production build passed; private routes dynamic"
+    },
+    {
+      "command": "pnpm check:client",
+      "exitCode": 0,
+      "publicFilesScanned": 28,
+      "result": "Configured database credentials plus synthetic signing, derivation and email secret sentinels absent"
+    },
+    {
+      "command": "pnpm test:e2e",
+      "exitCode": 0,
+      "passed": 108,
+      "failed": 0,
+      "skipped": 0,
+      "projects": [
+        "chromium",
+        "mobile-chromium (320 x 740)",
+        "mobile-390 (390 x 844)"
+      ],
+      "finalRunSummary": "108 passed (1.7m)"
+    },
+    {
+      "command": "Embedded axe WCAG scans",
+      "exitCode": 0,
+      "result": "All assertions passed on authentication/recovery, logout, calendar and four diary themes"
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    }
+  ],
+  "versions": {
+    "node": "24.22.1",
+    "pnpm": "12.8.1",
+    "betterAuth": "1.7.15",
+    "next": "16.4.3",
+    "react": "19.3.1",
+    "pg": "8.23.1"
+  },
+  "visualEvidence": {
+    "screenshots": 13,
+    "comparison": "visual-comparison.json",
+    "captureConvention": "CSS pixels, DPR 1, matching Phase 4; behavior additionally tested with Pixel device emulation"
+  },
+  "remoteCI": "Pending authorized publication; exact pushed SHA and completed workflow result must be verified in the final owner handoff",
+  "production": {
+    "migrationsApplied": false,
+    "ownerProvisioned": false,
+    "realEmailSent": false,
+    "paidServiceActivated": false,
+    "frontendDeployed": false
+  },
+  "phase6Implemented": false,
+  "limitations": [
+    "No real owner email/provisioning approval",
+    "Production least-privileged roles and migrations pending approval",
+    "Free sender eligibility and live delivery remain unverified",
+    "Writing remains volatile tab memory; no diary persistence/autosave/IndexedDB"
+  ],
+  "securityAudit": {
+    "envLocalIgnored": true,
+    "neonIgnored": true,
+    "envLocalMode": "0600",
+    "productionRoleInspection": "Read-only capability check only; elevated existing role unsuitable for auth runtime",
+    "privateValueFileScan": {
+      "passed": true,
+      "files": 178,
+      "valuesPrinted": false
+    },
+    "approvedPlanningFilesUnchanged": 4,
+    "localAuthTests": "Disposable local PostgreSQL only; no production schema/role writes"
+  },
+  "securityReview": {
+    "internalOwnerUUIDPublic": false,
+    "publicWorkspaceIdentity": "Domain-separated HMAC pseudonym only; never an authorization credential",
+    "rateHMACRoot": "Independent AUTH_DERIVATION_SECRET; HKDF SHA-256 purpose separation",
+    "runtimePrivilegeGuard": "Operator, elevated membership, DDL and unauthorized column grants rejected",
+    "newSessionIPAndUserAgentStored": false,
+    "newDependencies": false,
+    "reviewChanges": "security-review-changes.json"
+  },
+  "freshFinalizationRun": true
+}

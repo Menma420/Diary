@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./auth-fixture";
 import AxeBuilder from "@axe-core/playwright";
 
 test("appearance preserves writing node, focus, selection and geometry", async ({ page }) => {
@@ -26,6 +26,7 @@ test("appearance preserves writing node, focus, selection and geometry", async (
 
 test("paper reserves decoration space and rules share the text line height", async ({ page }) => {
   await page.goto("/");
+  await expect(page.getByRole("textbox", { name: "Diary writing preview" })).toBeVisible();
   const geometry = await page.evaluate(() => {
     const editor = document.querySelector("textarea")!;
     const date = document.querySelector("time")!;
@@ -44,7 +45,7 @@ test("paper reserves decoration space and rules share the text line height", asy
   expect(geometry.overlaps).toBe(false);
   expect(geometry.ruleSpacing).toBe(`100% ${geometry.lineHeight}`);
   expect(geometry.decorative).toBe(true);
-  const controls = page.locator("button, select");
+  const controls = page.locator("button:visible, select:visible");
   for (const control of await controls.all()) {
     const box = await control.boundingBox();
     expect(box!.width).toBeGreaterThanOrEqual(44);
@@ -94,6 +95,7 @@ test("desktop rules fill available paper and shrink back after long writing or a
 
 test("keyboard focus is visible and theme changes do not steal it from controls", async ({ page }) => {
   await page.goto("/");
+  await expect(page.getByRole("textbox", { name: "Diary writing preview" })).toBeVisible();
   await page.keyboard.press("Tab");
   const previous = page.getByRole("button", { name: "Previous day" });
   await expect(previous).toBeFocused();

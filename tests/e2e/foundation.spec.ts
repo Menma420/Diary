@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./auth-fixture";
 
 test("diary preview loads without overflow, browser errors, or false save feedback", async ({ page }) => {
   const errors: string[] = [];

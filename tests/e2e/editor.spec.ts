@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./auth-fixture";
 
 test("native typing, clipboard paste and undo redo survive controlled editor renders", async ({ page, context }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);

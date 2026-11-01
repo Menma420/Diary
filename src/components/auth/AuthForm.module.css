@@ -1,0 +1,21 @@
+.page { min-height: 100svh; display: grid; place-items: center; padding: 1rem; background: var(--color-background); color: var(--color-text); }
+.card { width: min(100%, 25rem); box-sizing: border-box; padding: clamp(1rem, 4vw, 2rem); border: 1px solid var(--color-paper-border); border-radius: 1.25rem; background: var(--color-paper); }
+.card h1 { margin: 0 0 1rem; font-size: 1.375rem; font-weight: 500; }
+.card p { line-height: 1.5; }
+.form { display: grid; gap: .875rem; }
+.form label { display: grid; gap: .375rem; }
+.form input { box-sizing: border-box; width: 100%; min-height: 2.75rem; border: 1px solid var(--color-paper-border); border-radius: .5rem; padding: .625rem; color: var(--color-text); background: var(--color-background); font: inherit; }
+.form button, .action { min-height: 2.75rem; padding: .5rem .75rem; border: 1px solid var(--color-paper-border); border-radius: .5rem; font: inherit; background: var(--color-background); color: var(--color-text); cursor: pointer; }
+.form button:disabled { cursor: wait; }
+.password { display: flex; gap: .375rem; }
+.password input { min-width: 0; }
+.password label { flex: 1; min-width: 0; }
+.password button { align-self: end; }
+.link { display: inline-flex; align-items: center; min-height: 2.75rem; color: var(--color-text); }
+.notice { margin: 0; font-size: .875rem; }
+.overlay { position: fixed; inset: 0; z-index: 50; display: grid; place-items: center; padding: 1rem; background: var(--color-background); overflow-y: auto; }
+.dialog { max-width: min(25rem, calc(100vw - 2rem)); border: 1px solid var(--color-paper-border); border-radius: 1rem; padding: 1.5rem; color: var(--color-text); background: var(--color-paper); }
+.dialog::backdrop { background: #0009; }
+.logout { border: 0; background: transparent; padding: 0 .5rem; margin: -1.125rem 0 -1.125rem .25rem; min-height: 2.75rem; min-width: 2.75rem; vertical-align: middle; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
+
+.form input[type="checkbox"] { width: 1.125rem; min-height: 1.125rem; vertical-align: middle; accent-color: var(--color-accent-strong); }

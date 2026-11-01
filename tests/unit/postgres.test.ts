@@ -4,6 +4,7 @@ import { GET } from "@/app/api/health/postgres/route";
 
 const { check } = vi.hoisted(() => ({ check: vi.fn() }));
 vi.mock("@/lib/postgres.server", () => ({ checkPostgresConnection: check }));
+vi.mock("@/lib/auth/auth.server", () => ({ ownerResult: async () => ({ kind: "owner" }) }));
 it("uses strict TLS and bounded Node connections without editing the injected URL", () => {
   const url = "postgresql://synthetic:secret@ep-example-pooler.neon.tech/neondb?sslmode=require&channel_binding=require";
   const options = postgresPoolOptions(url);

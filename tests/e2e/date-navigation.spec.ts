@@ -1,4 +1,4 @@
-import { expect, test } from "@playwright/test";
+import { expect, test } from "./auth-fixture";
 import AxeBuilder from "@axe-core/playwright";
 
 test("exact URLs, refresh and browser history retain date-owned drafts", async ({ page }) => {
@@ -46,8 +46,8 @@ test("root and diary index resolve to today's Kolkata date", async ({ page }) =>
   }
 });
 
-test("Today recomputes Kolkata midnight after sleep independent of browser timezone and locale", async ({ browser }) => {
-  const context = await browser.newContext({ timezoneId: "America/Los_Angeles", locale: "en-US" }); const page = await context.newPage();
+test("Today recomputes Kolkata midnight after sleep independent of browser timezone and locale", async ({ browser, context: ownerContext }) => {
+  const context = await browser.newContext({ timezoneId: "America/Los_Angeles", locale: "en-US", storageState: await ownerContext.storageState() }); const page = await context.newPage();
   await page.clock.install({ time: new Date("2026-12-31T18:29:59Z") }); await page.goto("/diary/01/01/2020");
   await page.clock.setSystemTime(new Date("2026-12-31T18:30:01Z")); await expect(page.locator("time")).toHaveText("01/01/2020");
   await page.getByRole("button", { name: "Today", exact: true }).click();

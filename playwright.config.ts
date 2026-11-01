@@ -6,7 +6,8 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: 1,
   reporter: process.env.CI ? [["list"], ["html", { open: "never" }]] : "list",
-  use: { baseURL: "http://127.0.0.1:3100", trace: "retain-on-failure" },
+  // Auth traces can contain cookies/password request bodies. Keep them disabled.
+  use: { baseURL: "http://127.0.0.1:3100", trace: "off" },
   projects: [
     { name: "chromium", use: { ...devices["Desktop Chrome"] } },
     { name: "mobile-chromium", use: { ...devices["Pixel 7"], viewport: { width: 320, height: 740 } } },

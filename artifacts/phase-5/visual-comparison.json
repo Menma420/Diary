@@ -1,0 +1,65 @@
+[
+  {
+    "view": "desktop",
+    "theme": "sakura-pink",
+    "geometryMatchesPhase4": true,
+    "headerAndPaperDifferingPixels": 13,
+    "maximumChannelDifference": 2,
+    "differenceBounds": [
+      40,
+      113,
+      130,
+      171
+    ]
+  },
+  {
+    "view": "desktop",
+    "theme": "dreamy-sky",
+    "geometryMatchesPhase4": true,
+    "headerAndPaperDifferingPixels": 0,
+    "maximumChannelDifference": 0,
+    "differenceBounds": null
+  },
+  {
+    "view": "desktop",
+    "theme": "lavender-dreams",
+    "geometryMatchesPhase4": true,
+    "headerAndPaperDifferingPixels": 0,
+    "maximumChannelDifference": 0,
+    "differenceBounds": null
+  },
+  {
+    "view": "desktop",
+    "theme": "vintage-journal",
+    "geometryMatchesPhase4": true,
+    "headerAndPaperDifferingPixels": 0,
+    "maximumChannelDifference": 0,
+    "differenceBounds": null
+  },
+  {
+    "view": "mobile-320",
+    "theme": "sakura-pink",
+    "geometryMatchesPhase4": true,
+    "headerAndPaperDifferingPixels": 31,
+    "maximumChannelDifference": 2,
+    "differenceBounds": [
+      33,
+      103,
+      82,
+      146
+    ]
+  },
+  {
+    "view": "mobile-390",
+    "theme": "sakura-pink",
+    "geometryMatchesPhase4": true,
+    "headerAndPaperDifferingPixels": 36,
+    "maximumChannelDifference": 2,
+    "differenceBounds": [
+      33,
+      87,
+      82,
+      129
+    ]
+  }
+]

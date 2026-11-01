@@ -11,7 +11,10 @@ export const sentinels = [
 // Check locally injected database credentials without ever printing them.
 for (const path of [".env.local", ".env"]) if (existsSync(path)) process.loadEnvFile(path);
 const privateValues = [...sentinels];
-for (const key of ["DATABASE_URL", "DATABASE_URL_UNPOOLED"]) {
+for (const key of ["BETTER_AUTH_SECRET", "AUTH_DERIVATION_SECRET", "BREVO_API_KEY"]) {
+  if (process.env[key]) privateValues.push(process.env[key]);
+}
+for (const key of ["DATABASE_URL", "DATABASE_URL_UNPOOLED", "AUTH_DATABASE_URL"]) {
   const value = process.env[key];
   if (!value) continue;
   privateValues.push(value);
@@ -40,4 +43,4 @@ for (const file of files) {
     throw new Error(`Server configuration sentinel leaked into browser output: ${file}`);
   }
 }
-console.log(`Client output check passed (${files.length} assets/payloads; synthetic sentinels and configured database credentials).`);
+console.log(`Client output check passed (${files.length} assets/payloads; synthetic sentinels and configured server credentials).`);
