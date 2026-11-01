@@ -8,20 +8,18 @@ import { useDiarySession } from "./DiarySession";
 import { DiaryHeader } from "./DiaryHeader";
 import { DiaryPaper } from "./DiaryPaper";
 import styles from "./DiaryPreview.module.css";
+import { useDiaryEditor } from "./useDiaryEditor";
+import type { EditorMode } from "@/lib/diary/editor-model";
 
 type Selection = { start: number; end: number; direction: "forward" | "backward" | "none"; control: HTMLElement };
 
-export function DiaryPreview({ date }: { date: CalendarDate }) {
+export function DiaryPreview({ date, mode = "editable" }: { date: CalendarDate; mode?: EditorMode }) {
   const router = useRouter();
-  const { drafts, focusRef, theme, setTheme, timeZone } = useDiarySession();
-  if (!drafts.has(date)) drafts.set(date, { text: "", start: 0, end: 0, direction: "none", scrollY: 0 });
-  const draft = drafts.get(date)!;
+  const { focusRef, theme, setTheme, timeZone } = useDiarySession();
+  const binding = useDiaryEditor(date);
   const editor = useRef<HTMLTextAreaElement>(null);
   const calendarTrigger = useRef<HTMLButtonElement>(null);
   const selection = useRef<Selection | null>(null);
-  const capture = useCallback((node: HTMLTextAreaElement) => {
-    Object.assign(draft, { text: node.value, start: node.selectionStart, end: node.selectionEnd, direction: node.selectionDirection, scrollY: window.scrollY });
-  }, [draft]);
   const restore = useCallback(() => {
     const intent = focusRef.current;
     const active = document.activeElement;
@@ -52,7 +50,7 @@ export function DiaryPreview({ date }: { date: CalendarDate }) {
 
   function changeDate(next: CalendarDate, calendar = false) {
     const node = editor.current;
-    if (node) capture(node);
+    if (node) binding.capture(node);
     if (next === date) {
       if (!calendar) restoreEditingFocus();
       return;
@@ -86,7 +84,7 @@ export function DiaryPreview({ date }: { date: CalendarDate }) {
           onDateChange={changeDate}
           onThemeChange={changeTheme}
         />
-        <DiaryPaper date={{ value: date, label: formatDate(date) }} draft={draft} editorRef={editor} onSnapshot={capture} onReady={restore} />
+        <DiaryPaper date={{ value: date, label: formatDate(date) }} binding={binding} mode={mode} editorRef={editor} onReady={restore} />
         <footer className={styles.footer}>
           <div>
             <p className={styles.caption}>A little space for your thoughts <span aria-hidden="true">♡</span></p>

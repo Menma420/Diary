@@ -1,0 +1,140 @@
+[
+  {
+    "name": "desktop",
+    "width": 1053,
+    "height": 662,
+    "theme": "sakura-pink",
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 1005,
+      "height": 502
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 949,
+      "height": 230
+    },
+    "overflow": false,
+    "lineHeight": "44px",
+    "sha256": "f7acba6581022eec0548b56133818ad276a3e49f2deda7484f3bcda67563ed42",
+    "matchesApprovedPhase3": true,
+    "browserErrors": []
+  },
+  {
+    "name": "mobile",
+    "width": 390,
+    "height": 844,
+    "theme": "sakura-pink",
+    "paper": {
+      "x": 20,
+      "y": 74,
+      "width": 350,
+      "height": 696
+    },
+    "editor": {
+      "x": 37,
+      "y": 213,
+      "width": 316,
+      "height": 272
+    },
+    "overflow": false,
+    "lineHeight": "34px",
+    "sha256": "e11b02be16dbce85552b8fc69ee9e02fd95fc72eddd9bb9938782b37eb095f45",
+    "matchesApprovedPhase3": true,
+    "browserErrors": []
+  },
+  {
+    "name": "mobile-320",
+    "width": 320,
+    "height": 740,
+    "theme": "sakura-pink",
+    "paper": {
+      "x": 20,
+      "y": 91.390625,
+      "width": 280,
+      "height": 551.125
+    },
+    "editor": {
+      "x": 37,
+      "y": 230.390625,
+      "width": 246,
+      "height": 272
+    },
+    "overflow": false,
+    "lineHeight": "34px",
+    "sha256": "d6bad32612147f8eb7cfa48346de787500c1faf5d80682d88dcc5bc932e83a55",
+    "matchesApprovedPhase3": true,
+    "browserErrors": []
+  },
+  {
+    "name": "dreamy-sky",
+    "width": 1053,
+    "height": 662,
+    "theme": "dreamy-sky",
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 1005,
+      "height": 502
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 949,
+      "height": 230
+    },
+    "overflow": false,
+    "lineHeight": "44px",
+    "sha256": "79dc58bd4db110fa0f88197cce8dd21a24220b81da465b6329b9eddc890a6c27",
+    "matchesApprovedPhase3": null,
+    "browserErrors": []
+  },
+  {
+    "name": "lavender-dreams",
+    "width": 1053,
+    "height": 662,
+    "theme": "lavender-dreams",
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 1005,
+      "height": 502
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 949,
+      "height": 230
+    },
+    "overflow": false,
+    "lineHeight": "44px",
+    "sha256": "20b31d96152d737e8a9af66304efefd4ecfaabdcc1f6326594cdbebf578e35dc",
+    "matchesApprovedPhase3": null,
+    "browserErrors": []
+  },
+  {
+    "name": "vintage-journal",
+    "width": 1053,
+    "height": 662,
+    "theme": "vintage-journal",
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 1005,
+      "height": 502
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 949,
+      "height": 230
+    },
+    "overflow": false,
+    "lineHeight": "44px",
+    "sha256": "94a418b1290e57c30d38e1eadb7590eff4944c6104431e4d5e139e7efe654591",
+    "matchesApprovedPhase3": null,
+    "browserErrors": []
+  }
+]
