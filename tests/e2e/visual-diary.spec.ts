@@ -1,8 +1,8 @@
 import { expect, test } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 
-test("appearance and date fixtures preserve writing node, focus, selection and geometry", async ({ page }) => {
-  await page.goto("/");
+test("appearance preserves writing node, focus, selection and geometry", async ({ page }) => {
+  await page.goto("/diary/31/10/2026");
   const editor = page.getByRole("textbox", { name: "Diary writing preview" });
   await editor.fill("Synthetic preview writing\nsecond line 🌸");
   await editor.evaluate((element: HTMLTextAreaElement) => {
@@ -17,9 +17,6 @@ test("appearance and date fixtures preserve writing node, focus, selection and g
   await appearance.selectOption("lavender-dreams");
   await expect(editor).toBeFocused();
   expect(await editor.evaluate((element: HTMLTextAreaElement) => [element.selectionStart, element.selectionEnd, element.selectionDirection])).toEqual([3, 12, "backward"]);
-  await page.getByRole("button", { name: "Next preview date" }).click();
-  await expect(page.locator("time")).toHaveText("1 November 2026");
-  await expect(editor).toBeFocused();
   await expect(editor).toHaveAttribute("data-original-node", "true");
   await expect(editor).toHaveValue("Synthetic preview writing\nsecond line 🌸");
   expect(await editor.boundingBox()).toEqual(before);
@@ -98,7 +95,7 @@ test("desktop rules fill available paper and shrink back after long writing or a
 test("keyboard focus is visible and theme changes do not steal it from controls", async ({ page }) => {
   await page.goto("/");
   await page.keyboard.press("Tab");
-  const previous = page.getByRole("button", { name: "Previous preview date" });
+  const previous = page.getByRole("button", { name: "Previous day" });
   await expect(previous).toBeFocused();
   expect(await previous.evaluate((node) => getComputedStyle(node).outlineStyle)).toBe("solid");
   const appearance = page.getByRole("combobox", { name: "Theme preview" });
@@ -129,4 +126,11 @@ test("200 percent reflow and reduced motion keep all controls reachable", async 
   await expect(editor).toHaveValue("Synthetic zoom check");
   await page.getByRole("combobox", { name: "Theme preview" }).selectOption("dreamy-sky");
   await expect(editor).toHaveValue("Synthetic zoom check");
+  await page.getByRole("button", { name: "Open calendar" }).click();
+  const calendar = page.getByRole("dialog");
+  const close = calendar.getByRole("button", { name: "Close calendar" });
+  await close.focus(); await expect(close).toBeInViewport();
+  const today = calendar.getByRole("button", { name: "Today", exact: true });
+  await today.focus(); await expect(today).toBeInViewport(); await today.click();
+  await expect(calendar).not.toBeVisible(); await expect(editor).toHaveValue("Synthetic zoom check");
 });

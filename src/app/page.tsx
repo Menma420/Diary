@@ -1,5 +1,2 @@
-import { DiaryPreview } from "@/components/diary/DiaryPreview";
-
-export default function Home() {
-  return <DiaryPreview />;
-}
+export { default } from "./diary/page";
+export const dynamic = "force-dynamic";

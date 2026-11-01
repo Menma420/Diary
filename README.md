@@ -1,10 +1,12 @@
 # Dear Diary
 
-Implementation of the approved Consolidated Implementation Baseline **v1.1**. Phase 1 is closed: [Foundation checks run 41220902880](https://github.com/Menma420/Diary/actions/runs/41220902880) succeeded for commit `e33ec55507b0812c0e9590d8c09445bcb0c62e6c`. The owner explicitly authorized Phase 2 on 31 October 2026 and approved the final visual implementation on 1 November 2026, including its writing-area and typography refinements. Phase 3 requires separate approval.
+Implementation of the approved Consolidated Implementation Baseline **v1.1**. Phases 1 and 2 are closed. [Phase 2 Foundation checks run 41231042181](https://github.com/Menma420/Diary/actions/runs/41231042181) succeeded for commit `260d1c1b0906ba93ac208dfce35bf9aae053654a`. The owner accepted Phase 3 on 1 November 2026 and authorized final verification, commit and push. Phase 4 requires separate explicit approval.
 
-Next.js App Router, strict TypeScript, Zod, CSS Modules and semantic custom properties support a responsive visual diary preview at `/`. It contains warm lined paper, a paper date, compact controls, a native textarea, four theme previews and four original temporary corner illustrations. Supabase PostgreSQL/Auth remain the approved providers; their integration begins in Phases 5–6.
+Next.js App Router, strict TypeScript, Zod, CSS Modules and semantic custom properties support a responsive diary preview at `/diary/DD/MM/YYYY`. Both `/` and `/diary` redirect to today's date using the configured timezone, initially Asia/Kolkata. The approved warm lined paper, compact controls, native textarea, four theme previews and four original temporary corner illustrations are retained. Supabase PostgreSQL/Auth remain the approved providers; their integration begins in Phases 5–6.
 
-This phase uses three fixed date fixtures (30 October, 31 October and 1 November 2026). “Today” returns to the reference date, 31 October 2026. These controls change the displayed preview date, keep the same single writing surface, and do not navigate to date URLs. Text is volatile, survives appearance/fixture-label changes only within the mounted preview, and is lost on reload. The footer explicitly says “Preview · not saved”. Date routing/calendar behavior belongs to Phase 3; date-owned drafts and editor contracts to Phase 4; autosave and IndexedDB to Phase 6. Appearance preview does not save preferences or select decorations; those remain Phases 7–8. No authentication, database/API integration, shuffle, uploads or other product features were added.
+Previous/next move one Gregorian calendar day; Today is computed when clicked, including after sleep or midnight. A compact calendar supports month browsing, direct date entry, keyboard day/month/year navigation and a Today action. Dates are displayed, entered and routed as **DD/MM/YYYY**, as requested by the owner: for example, `/diary/01/11/2026`. Internal calendar values and semantic HTML dates retain ISO YYYY-MM-DD. Supported dates are 01/01/0001 through 31/12/9999. Invalid dates show a safe error instead of being silently normalized.
+
+A lightweight date-keyed memory map in the persistent diary layout isolates drafts and remembers selection/scroll during client navigation and history traversal. Returning to a visited date restores that date's own text. Reloading or closing the tab clears all temporary drafts; refresh preserves the selected URL date only. The footer remains “Preview · not saved”. This is the expressly authorized Phase 3 memory model, without Phase 4 server/owner/revision/recovery contracts. Autosave and IndexedDB remain Phase 6. Appearance preview is volatile; persistent preferences and deterministic decoration selection remain Phases 7–8. No authentication, database/API integration, shuffle or uploads were added.
 
 ## Local setup
 
@@ -45,7 +47,7 @@ pnpm exec playwright install chromium
 pnpm test:e2e
 ```
 
-`typecheck` first generates Next route types so it works in a clean checkout. `test` runs Vitest and Testing Library once; `test:watch` is interactive. Playwright starts its own production server on port 3100, with desktop Chromium and a 320 px Chromium mobile viewport. Build first. CI installs the browser system dependencies too. These browser tests are not real-device or visual acceptance.
+`typecheck` first generates Next route types so it works in a clean checkout. `test` runs Vitest and Testing Library once; `test:watch` is interactive. Playwright starts its own production server on port 3100, with desktop Chromium and 390 px and 320 px Chromium mobile viewports. Build first. CI installs the browser system dependencies too. These browser tests are not real-device or visual acceptance.
 
 For a production smoke test, `pnpm start`. Development and production servers bind to loopback by default. Next builds do not replace the independent lint step.
 
@@ -85,7 +87,7 @@ Each theme defines background, paper, paper border, ruled line, primary/muted te
 
 The original visual reference is available at `/home/menma/Pictures/Screenshots/Screenshot from 2026-10-31 19-32-50.png` and is embedded in the approved baseline. The implemented pink frame, warm solid-bordered paper, rules and corner tiles have been compared directly at the same 1053 × 662 size. The date is intentionally placed inside the paper per baseline v1.1. Original temporary SVG artwork is documented under `public/decorations/temporary/README.md` and identified in the footer; none was copied from the screenshot. The owner accepted the final Phase 2 visuals on 1 November 2026.
 
-See [Phase 2 handoff](docs/phase-2-report.md), including desktop/mobile screenshots, measured layout geometry and outstanding differences. To regenerate the evidence, serve the production build (`pnpm build`, then `pnpm start` in a retained terminal), then run:
+See [Phase 2 handoff](docs/phase-2-report.md), including approved desktop/mobile screenshots, measured layout geometry and accepted differences. Run the following historical capture script only against the approved Phase 2 revision; use the Phase 3 command below for this checkout. To regenerate historical evidence, serve that revision's production build, then run:
 
 ```sh
 node scripts/capture-phase-2.mjs
@@ -93,11 +95,13 @@ node scripts/capture-phase-2.mjs
 
 `PREVIEW_URL` overrides the local URL; `REFERENCE_IMAGE` overrides the reference path for another machine. Screenshots and `layout-metrics.json` are generated in `artifacts/phase-2/`. The capture waits for hydration and image decoding. It also creates a side-by-side reference comparison; that comparison is QA evidence, not a product image. The 526 × 331 / DPR 2 capture is a 200% reflow equivalent, not a claim of a manual browser-zoom test.
 
+Current routing, date ownership, tests, limits and file changes are documented in the [Phase 3 handoff](docs/phase-3-report.md). Regenerate current production evidence with `PREVIEW_URL=http://127.0.0.1:3100 node scripts/capture-phase-3.mjs` after building and starting the app on that port. This writes only to `artifacts/phase-3/`, keeping the approved Phase 2 evidence intact. Phase 3 has a closed/open-calendar capture at desktop, 390 px, 320 px, landscape and 200% reflow-equivalent widths, separate synthetic date-draft captures, and a direct Phase 2 comparison.
+
 ## Testing boundaries and phase control
 
 See [recovery verification boundaries](tests/RECOVERY-BOUNDARIES.md) and its synthetic fixture seeds. These establish future coverage obligations; they do not implement or prove FR-19. Recovery schema/adapter contracts belong to Phase 4 and IndexedDB implementation to Phase 6. No mocked storage success is exposed as a server save.
 
-The GitHub workflow executes locked install, environment/token checks, lint, type check, units, production build, sentinel scanning, and production browser tests as separate steps. The Phase 1 run succeeded for the commit linked above. Phase 2 adds axe accessibility checks using the pinned development dependency `@axe-core/playwright@4.14.0`; Playwright runs all four themes through WCAG A/AA scans on desktop and mobile Chromium. The owner authorized committing and pushing Phase 2 on 1 November 2026. Remote results must be checked against the pushed commit's exact SHA in [Foundation checks](https://github.com/Menma420/Diary/actions/workflows/ci.yml); a local pass or older run does not establish that result. No hosting is provisioned or deployed.
+The GitHub workflow executes locked install, environment/token checks, lint, type check, units, production build, sentinel scanning, and production browser tests as separate steps. Phase 2's remote run succeeded for the commit linked above. The existing pinned `@axe-core/playwright@4.14.0` now checks the diary and calendar across all four themes; browser projects cover desktop, 390 px and 320 px mobile Chromium. The owner authorized the Phase 3 commit and push. Its remote workflow result must be verified against the exact pushed SHA and reported in the final delivery; local verification alone does not establish remote CI success. No hosting is provisioned or deployed.
 
 Keep the three approved Word documents in `documents/` unchanged. Later owner inputs remain the account/recovery contact before Phase 5, artwork rights before final visual asset acceptance, and hosting/region/backup objectives before Phase 10. None blocks foundation work.
 

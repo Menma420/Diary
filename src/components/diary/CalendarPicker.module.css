@@ -1,0 +1,41 @@
+.dialog {
+  width: min(24rem, calc(100vw - 0.5rem));
+  max-width: none;
+  max-height: calc(100svh - 1rem);
+  padding: 0;
+  border: 1px solid var(--color-paper-border);
+  border-radius: 1rem;
+  background: var(--color-paper);
+  color: var(--color-text);
+  box-shadow: var(--shadow-paper);
+}
+.dialog::backdrop { background: rgb(40 25 35 / 25%); }
+.dialog button {
+  min-width: var(--touch-target);
+  min-height: var(--touch-target);
+  padding: 0.375rem;
+  border: 0;
+  border-radius: var(--radius-control);
+  background: transparent;
+  color: var(--color-text);
+  cursor: pointer;
+}
+.dialog button:hover:not(:disabled) { background: var(--color-background); }
+.dialog button:disabled { opacity: 0.35; cursor: default; }
+.heading { display: flex; align-items: center; padding: 0.5rem 0.25rem; }
+.heading h2 { flex: 1; margin: 0; text-align: center; font-size: 1rem; font-weight: 400; }
+.heading > button { font-size: 1.5rem; }
+.jump { padding: 0 0.75rem 0.5rem; font-size: 0.875rem; }
+.jump > div { display: flex; gap: 0.5rem; margin-top: 0.25rem; }
+.jump input { flex: 1; min-width: 0; min-height: var(--touch-target); padding: 0.375rem; border: 1px solid var(--color-paper-border); border-radius: var(--radius-control); color: var(--color-text); background: var(--color-paper); }
+.week { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); }
+.week > span { min-width: 0; text-align: center; }
+.week [role="columnheader"] { padding-block: 0.5rem; font-size: 0.75rem; }
+.week button { width: 100%; }
+.week [aria-selected="true"] button { background: var(--color-accent-strong); color: var(--color-accent-foreground); }
+.week [aria-selected="true"] button:hover { background: var(--color-accent-strong); }
+.week button[aria-current="date"] { text-decoration: underline; text-underline-offset: 0.25rem; }
+.week button:focus-visible { outline-offset: -3px; }
+.week [aria-selected="true"] button:focus-visible { outline-color: var(--color-accent-foreground); }
+.bottom { padding: 0.5rem 0.75rem; display: flex; align-items: center; gap: 0.5rem; border-top: 1px solid var(--color-paper-border); }
+.bottom p { flex: 1; margin: 0; font-size: 0.75rem; line-height: 1.5; }

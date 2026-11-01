@@ -1,12 +1,17 @@
 import { themes, type ThemeId } from "@/themes/themes";
 import styles from "./DiaryPreview.module.css";
+import { useState, type RefObject } from "react";
+import { addDays, today, type CalendarDate } from "@/lib/dates";
+import { CalendarPicker } from "./CalendarPicker";
 
 type Props = {
-  dateIndex: number;
+  date: CalendarDate;
+  timeZone: string;
+  calendarTrigger: RefObject<HTMLButtonElement | null>;
   theme: ThemeId;
   onRememberFocus: (event: PointerEvent<HTMLElement>) => void;
   onCancelFocus: () => void;
-  onDateChange: (index: number) => void;
+  onDateChange: (date: CalendarDate, calendar?: boolean) => void;
   onThemeChange: (theme: ThemeId) => void;
 };
 
@@ -18,18 +23,25 @@ function Arrow({ forward = false }: { forward?: boolean }) {
   );
 }
 
-export function DiaryHeader({ dateIndex, theme, onRememberFocus, onCancelFocus, onDateChange, onThemeChange }: Props) {
+export function DiaryHeader({ date, timeZone, calendarTrigger, theme, onRememberFocus, onCancelFocus, onDateChange, onThemeChange }: Props) {
+  const [calendarOpen, setCalendarOpen] = useState(false);
+  const previous = addDays(date, -1);
+  const next = addDays(date, 1);
   return (
     <header className={styles.header} onPointerCancel={onCancelFocus} onKeyDown={onCancelFocus}>
       <h1 className={styles.identity}>MY LITTLE DIARY <span aria-hidden="true">♡</span></h1>
       <div className={styles.controls}>
-        <nav className={styles.navigation} aria-label="Preview dates" aria-describedby="preview-controls-help">
-          <button className={styles.iconButton} type="button" aria-label="Previous preview date" disabled={dateIndex === 0}
-            onPointerDown={onRememberFocus} onClick={() => onDateChange(dateIndex - 1)}><Arrow /></button>
-          <button className={styles.todayButton} type="button" title="Reference date: 31 October 2026"
-            onPointerDown={onRememberFocus} onClick={() => onDateChange(1)}>Today</button>
-          <button className={styles.iconButton} type="button" aria-label="Next preview date" disabled={dateIndex === 2}
-            onPointerDown={onRememberFocus} onClick={() => onDateChange(dateIndex + 1)}><Arrow forward /></button>
+        <nav className={styles.navigation} aria-label="Diary dates">
+          <button className={styles.iconButton} type="button" aria-label="Previous day" disabled={!previous}
+            onPointerDown={onRememberFocus} onClick={() => previous && onDateChange(previous)}><Arrow /></button>
+          <button className={styles.todayButton} type="button" title={`Today in ${timeZone}`}
+            onPointerDown={onRememberFocus} onClick={() => onDateChange(today(timeZone))}>Today</button>
+          <button className={styles.iconButton} type="button" aria-label="Next day" disabled={!next}
+            onPointerDown={onRememberFocus} onClick={() => next && onDateChange(next)}><Arrow forward /></button>
+          <button ref={calendarTrigger} className={styles.iconButton} type="button" aria-label="Open calendar" aria-haspopup="dialog"
+            onClick={() => { onCancelFocus(); setCalendarOpen(true); }}>
+            <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" /><path d="M7 2v6M17 2v6M3 11h18M7 15h3M14 15h3" /></svg>
+          </button>
         </nav>
         <label className={styles.appearance} title="Preview a theme">
           <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
@@ -43,7 +55,7 @@ export function DiaryHeader({ dateIndex, theme, onRememberFocus, onCancelFocus, 
           </select>
         </label>
       </div>
-      <p id="preview-controls-help" className="srOnly">Visual preview of 30 October through 1 November 2026. Today returns to the reference date. Writing stays on this preview page and is not saved.</p>
+      {calendarOpen && <CalendarPicker selected={date} timeZone={timeZone} onClose={() => setCalendarOpen(false)} onSelect={(next) => onDateChange(next, true)} />}
     </header>
   );
 }

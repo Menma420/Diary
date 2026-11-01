@@ -1,0 +1,137 @@
+[
+  {
+    "name": "desktop",
+    "width": 1053,
+    "height": 662,
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 1005,
+      "height": 502
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 949,
+      "height": 230
+    },
+    "date": "31/10/2026",
+    "overflow": false,
+    "lineHeight": "44px",
+    "calendar": {
+      "x": 334.5,
+      "y": 108.5,
+      "width": 384,
+      "height": 445
+    },
+    "browserErrors": []
+  },
+  {
+    "name": "mobile",
+    "width": 390,
+    "height": 844,
+    "paper": {
+      "x": 20,
+      "y": 74,
+      "width": 350,
+      "height": 696
+    },
+    "editor": {
+      "x": 37,
+      "y": 213,
+      "width": 316,
+      "height": 272
+    },
+    "date": "31/10/2026",
+    "overflow": false,
+    "lineHeight": "34px",
+    "calendar": {
+      "x": 4,
+      "y": 199.5,
+      "width": 382,
+      "height": 445
+    },
+    "browserErrors": []
+  },
+  {
+    "name": "mobile-320",
+    "width": 320,
+    "height": 740,
+    "paper": {
+      "x": 20,
+      "y": 91.390625,
+      "width": 280,
+      "height": 551.125
+    },
+    "editor": {
+      "x": 37,
+      "y": 230.390625,
+      "width": 246,
+      "height": 272
+    },
+    "date": "31/10/2026",
+    "overflow": false,
+    "lineHeight": "34px",
+    "calendar": {
+      "x": 4,
+      "y": 142.5,
+      "width": 312,
+      "height": 455
+    },
+    "browserErrors": []
+  },
+  {
+    "name": "landscape",
+    "width": 844,
+    "height": 390,
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 796,
+      "height": 500
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 740,
+      "height": 228
+    },
+    "date": "31/10/2026",
+    "overflow": false,
+    "lineHeight": "44px",
+    "calendar": {
+      "x": 230,
+      "y": 8,
+      "width": 384,
+      "height": 374
+    },
+    "browserErrors": []
+  },
+  {
+    "name": "zoom-200-reflow",
+    "width": 526,
+    "height": 331,
+    "paper": {
+      "x": 20,
+      "y": 74,
+      "width": 486,
+      "height": 500
+    },
+    "editor": {
+      "x": 37,
+      "y": 213,
+      "width": 452,
+      "height": 272
+    },
+    "date": "31/10/2026",
+    "overflow": false,
+    "lineHeight": "34px",
+    "calendar": {
+      "x": 71,
+      "y": 8,
+      "width": 384,
+      "height": 315
+    },
+    "browserErrors": []
+  }
+]
