@@ -20,10 +20,15 @@
     "env:check": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/check-env.ts",
     "tokens:generate": "node scripts/theme-css.mjs --write",
     "tokens:check": "node scripts/theme-css.mjs",
-    "check:client": "node scripts/check-client-output.mjs"
+    "check:client": "node scripts/check-client-output.mjs",
+    "neon:check": "node scripts/check-neon.mjs"
   },
   "dependencies": {
+    "@neon/config": "1.10.0",
+    "@neon/env": "1.6.8",
+    "@vercel/functions": "3.10.5",
     "next": "16.4.3",
+    "pg": "8.23.1",
     "react": "19.3.1",
     "react-dom": "19.3.1",
     "server-only": "0.0.1",
@@ -36,6 +41,7 @@
     "@testing-library/jest-dom": "7.0.1",
     "@testing-library/react": "16.3.3",
     "@types/node": "24.19.2",
+    "@types/pg": "8.23.1",
     "@types/react": "19.3.0",
     "@types/react-dom": "19.3.0",
     "@vitejs/plugin-react": "6.1.2",

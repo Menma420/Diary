@@ -1,4 +1,5 @@
 import { readdir, readFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
 
 // Synthetic sentinels are set during the verification build, never real credentials.
 export const sentinels = [
@@ -6,6 +7,19 @@ export const sentinels = [
   "phase1-browser-leak-sentinel",
   "https://phase1-private-config.example.invalid",
 ];
+
+// Check locally injected database credentials without ever printing them.
+for (const path of [".env.local", ".env"]) if (existsSync(path)) process.loadEnvFile(path);
+const privateValues = [...sentinels];
+for (const key of ["DATABASE_URL", "DATABASE_URL_UNPOOLED"]) {
+  const value = process.env[key];
+  if (!value) continue;
+  privateValues.push(value);
+  try {
+    const password = new URL(value).password;
+    if (password.length >= 12) privateValues.push(password, decodeURIComponent(password));
+  } catch { throw new Error(`Invalid ${key}; value redacted`); }
+}
 
 async function filesIn(directory) {
   const entries = await readdir(directory, { withFileTypes: true });
@@ -22,8 +36,8 @@ const files = [
 ];
 for (const file of files) {
   const text = await readFile(file, "utf8");
-  if (sentinels.some((value) => text.includes(value))) {
+  if (privateValues.some((value) => text.includes(value))) {
     throw new Error(`Server configuration sentinel leaked into browser output: ${file}`);
   }
 }
-console.log(`Client output check passed (${files.length} assets/payloads; three synthetic sentinels).`);
+console.log(`Client output check passed (${files.length} assets/payloads; synthetic sentinels and configured database credentials).`);
