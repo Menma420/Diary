@@ -1,0 +1,50 @@
+{
+  "environment": "Disposable loopback PostgreSQL; no production connection",
+  "postgresVersion": "14.24 (Ubuntu 14.24-0ubuntu0.22.04.1)",
+  "migration": "migrations/diary/001_entries.sql",
+  "diaryRuntimeGuard": "passed",
+  "authRuntimeGuard": "passed",
+  "permissions": {
+    "read_function": true,
+    "write_function": true,
+    "direct_entries": false,
+    "entry_columns": false,
+    "direct_mutations": false,
+    "owner_binding": false,
+    "auth_accounts": false,
+    "diary_create": false,
+    "database_create": false
+  },
+  "tables": [
+    {
+      "relname": "entries",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "owner": "diary_data_owner"
+    },
+    {
+      "relname": "mutations",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "owner": "diary_data_owner"
+    }
+  ],
+  "functions": [
+    {
+      "proname": "read_entry",
+      "prosecdef": true,
+      "proconfig": [
+        "search_path=pg_catalog, pg_temp"
+      ],
+      "owner": "diary_data_owner"
+    },
+    {
+      "proname": "write_entry",
+      "prosecdef": true,
+      "proconfig": [
+        "search_path=pg_catalog, pg_temp"
+      ],
+      "owner": "diary_data_owner"
+    }
+  ]
+}

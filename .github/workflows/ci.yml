@@ -28,6 +28,7 @@ jobs:
       AUTH_DATABASE_URL: postgresql://synthetic:phase5-auth-database-leak-sentinel@phase5-auth.example.invalid/auth?sslmode=require
       BETTER_AUTH_SECRET: phase5-auth-client-output-sentinel-at-least-32-characters
       AUTH_DERIVATION_SECRET: AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE
+      DIARY_DATABASE_URL: postgresql://synthetic:phase6-diary-database-leak-sentinel@phase6-diary.example.invalid/diary?sslmode=require
       BREVO_API_KEY: phase5-mail-client-output-sentinel
     steps:
       - uses: actions/checkout@v4
@@ -56,6 +57,8 @@ jobs:
           sudo apt-get install -y postgresql openssl
       - name: Authentication migration, privileges and concurrency tests
         run: pnpm test:auth
+      - name: Diary migration, permissions and concurrency tests
+        run: pnpm test:diary
       - name: Production build
         run: pnpm build
       - name: Verify server configuration is absent from client output

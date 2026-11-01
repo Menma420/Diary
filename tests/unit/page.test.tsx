@@ -17,7 +17,7 @@ function Home() { return <DiarySession timeZone="Asia/Kolkata"><Page /></DiarySe
 it("labels volatile preview writing and temporary artwork without claiming a save", () => {
   render(<Home />);
   expect(screen.getByRole("heading", { level: 1, name: /MY LITTLE DIARY/ })).toBeVisible();
-  expect(screen.getByRole("textbox", { name: "Diary writing preview" })).toHaveAccessibleDescription(/Preview · not saved.*Reloading or closing the tab clears/);
+  expect(screen.getByRole("textbox", { name: "Diary writing preview" })).toHaveAccessibleDescription(/Preview · not saved.*Server saving and device recovery are reported separately/);
   expect(screen.getByText("Temporary original illustrations")).toBeVisible();
   expect(screen.queryByText(/^Saved$/)).not.toBeInTheDocument();
 });

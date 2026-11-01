@@ -40,7 +40,7 @@ export async function startFixture() {
       res.writeHead(200, { "content-type": "application/json", "cache-control": "no-store" }).end(JSON.stringify(messages));
     } else res.writeHead(404).end();
   });
-  let admin; let runtime; let started = false;
+  let admin; let runtime; let diary; let started = false;
   try {
     await commands("initdb", ["-D", `${directory}/data`, "-U", "diary_fixture_admin", "--auth=trust", "--encoding=UTF8", "--locale=C"]);
     await execFile("openssl", ["req", "-x509", "-newkey", "rsa:2048", "-nodes", "-keyout", `${directory}/server.key`, "-out", `${directory}/server.crt`, "-days", "2", "-subj", "/CN=localhost", "-addext", "subjectAltName=DNS:localhost,IP:127.0.0.1"]);
@@ -57,6 +57,9 @@ export async function startFixture() {
     if (sql !== await readFile("migrations/auth/001_better_auth_1_7_15.sql", "utf8")) throw new Error("Pinned Better Auth schema differs from reviewed migration");
     await admin.query(sql);
     await admin.query(await readFile("migrations/auth/002_owner_and_limits.sql", "utf8"));
+    await admin.query(await readFile("migrations/diary/001_entries.sql", "utf8"));
+    await admin.query(`CREATE ROLE diary_entry_fixture LOGIN PASSWORD '${dbPassword}' IN ROLE diary_entry_runtime`);
+    await admin.query("GRANT CONNECT ON DATABASE diary_auth_test TO diary_entry_runtime");
     // Random fixture-only login credentials; never emitted or written into the repo.
     await admin.query(`CREATE ROLE diary_auth_fixture LOGIN PASSWORD '${dbPassword}' IN ROLE diary_auth_runtime`);
     await admin.query("REVOKE CONNECT, TEMPORARY ON DATABASE diary_auth_test FROM PUBLIC; GRANT CONNECT ON DATABASE diary_auth_test TO diary_auth_runtime");
@@ -69,15 +72,17 @@ export async function startFixture() {
     const url = new URL(`postgresql://diary_auth_fixture:${dbPassword}@127.0.0.1:${port}/diary_auth_test`);
     url.searchParams.set("sslmode", "verify-full"); url.searchParams.set("sslrootcert", `${directory}/server.crt`);
     runtime = new Pool(postgresPoolOptions(url.href));
+    const diaryURL=new URL(url.href); diaryURL.username="diary_entry_fixture";
+    diary = new Pool(postgresPoolOptions(diaryURL.href));
     const sinkPort = await listen(sink);
     const sinkURL = `http://127.0.0.1:${sinkPort}`;
-    const env = { APP_ORIGIN: "http://127.0.0.1:3100", DEFAULT_TIMEZONE: "Asia/Kolkata", AUTH_DATABASE_URL: url.href, DATABASE_URL: url.href,
+    const env = { DIARY_DATABASE_URL: diaryURL.href, APP_ORIGIN: "http://127.0.0.1:3100", DEFAULT_TIMEZONE: "Asia/Kolkata", AUTH_DATABASE_URL: url.href, DATABASE_URL: url.href,
       BETTER_AUTH_SECRET: secret, AUTH_DERIVATION_SECRET: derivationSecret, AUTH_MAIL_MODE: "sink", AUTH_MAIL_SINK_URL: sinkURL,
       DIARY_TEST_ADMIN_PORT: String(port), DIARY_TEST_CA: `${directory}/server.crt`, DIARY_TEST_CONTROL: control };
-    const close = async () => { await runtime.end(); await admin.end(); await new Promise(r => sink.close(r)); await commands("pg_ctl", ["-D", `${directory}/data`, "-m", "immediate", "stop"]); await rm(directory, { recursive: true, force: true }); };
-    return { admin, runtime, env, messages, close, secret, derivationSecret };
+    const close = async () => { await diary.end(); await runtime.end(); await admin.end(); await new Promise(r => sink.close(r)); await commands("pg_ctl", ["-D", `${directory}/data`, "-m", "immediate", "stop"]); await rm(directory, { recursive: true, force: true }); };
+    return { admin, runtime, diary, env, messages, close, secret, derivationSecret };
   } catch {
-    await runtime?.end(); await admin?.end(); sink.close();
+    await diary?.end(); await runtime?.end(); await admin?.end(); sink.close();
     if (started) await commands("pg_ctl", ["-D", `${directory}/data`, "-m", "immediate", "stop"]);
     await rm(directory, { recursive: true, force: true });
     throw new Error("Disposable authentication fixture setup failed; details withheld to protect credentials.");

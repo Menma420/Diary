@@ -64,6 +64,6 @@ export function DiaryEditor({ binding: { controller, state, capture }, editorRef
       onSelect={(event) => capture(event.currentTarget)} onBlur={(event) => capture(event.currentTarget)}
       onCompositionStart={() => controller.dispatch({ type: "composition", phase: "composing" })}
       onCompositionEnd={(event) => { input(event.currentTarget); controller.dispatch({ type: "composition", phase: "idle" }); }} />
-    <p id="writing-help" className="srOnly">Writing belongs to this date and stays in this tab during navigation. Reloading or closing the tab clears all temporary drafts.</p>
+    <p id="writing-help" className="srOnly">Writing belongs to this date. Server saving and device recovery are reported separately below the paper.</p>
   </>;
 }

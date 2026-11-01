@@ -3,8 +3,24 @@ import { initializeEditor, transitionEditor, type EditorDocument, type EditorEve
 
 export type EditingSession = Readonly<{ date: CalendarDate; token: symbol }>;
 
-// One mounted preview workspace. No authenticated identity, timers, storage or I/O.
+// One mounted editor workspace. No identity, timers, storage or I/O.
 export class EditorWorkspace {
+  private readonly observers = new Set<(state: ReadyEditor) => void>();
+  observe(listener: (state: ReadyEditor) => void) { this.observers.add(listener); return () => { this.observers.delete(listener); }; }
+  acknowledge(date: CalendarDate, content: string) {
+    const state=this.get(date);
+    this.documents.set(date,Object.freeze({ ...state,baseline: Object.freeze({ date,content }) }));
+    for (const listener of this.listeners.get(date) ?? []) listener();
+  }
+  hydrate(date: CalendarDate, document: EditorDocument | null, revision = 0) {
+    const loaded = transitionEditor(initializeEditor(date), { type: "load", document });
+    if (!loaded.ok || loaded.state.lifecycle !== "ready") throw new Error("Invalid document");
+    const previous = this.documents.get(date);
+    const length=document?.content.length ?? 0;
+    const selection=previous ? Object.freeze({ ...previous.selection,start: Math.min(previous.selection.start,length),end: Math.min(previous.selection.end,length) }) : loaded.state.selection;
+    this.documents.set(date, Object.freeze({ ...loaded.state, revision: Math.max(previous?.revision ?? 0,revision), selection, scrollY: previous?.scrollY ?? 0 }));
+    for (const listener of this.listeners.get(date) ?? []) listener();
+  }
   private readonly documents = new Map<CalendarDate, ReadyEditor>();
   private readonly sessions = new Map<CalendarDate, symbol>();
   private readonly listeners = new Map<CalendarDate, Set<() => void>>();
@@ -42,6 +58,7 @@ export class EditorWorkspace {
     const result = transitionEditor(this.get(session.date), event);
     if (result.ok && result.state.lifecycle === "ready") {
       this.documents.set(session.date, result.state);
+      for (const listener of this.observers) listener(result.state);
       for (const listener of this.listeners.get(session.date) ?? []) listener();
     }
     return result;

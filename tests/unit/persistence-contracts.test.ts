@@ -52,6 +52,7 @@ it("acknowledgements must match the immutable mutation's date, ID and committed 
   const mutation = mutationSnapshotSchema.parse({ date: a, revision: 1, request: request("Snapshot", 4) });
   const acknowledgement = { date: a, version: 5, mutationId: id, updatedAt };
   expect(parseAcknowledgement(mutation, acknowledgement)).toEqual(acknowledgement);
+  expect(parseAcknowledgement({ ...mutation,request: { ...mutation.request,mutationId: "ABCDEFAB-1111-4111-8111-111111111111" } }, { ...acknowledgement,mutationId: "abcdefab-1111-4111-8111-111111111111" }).mutationId).toBe("abcdefab-1111-4111-8111-111111111111");
   for (const changes of [{ date: b }, { version: 6 }, { mutationId: nextId }]) {
     expect(() => parseAcknowledgement(mutation, { ...acknowledgement, ...changes })).toThrow("Acknowledgement does not match mutation");
   }
@@ -61,6 +62,7 @@ it("validates exact plain text by UTF-8 size without trimming it", () => {
   expect(entryContentSchema.safeParse("x".repeat(256 * 1024)).success).toBe(true);
   expect(entryContentSchema.safeParse("🌸".repeat(65537)).success).toBe(false);
   expect(entryContentSchema.safeParse("x\0y").success).toBe(false);
+  expect(entryContentSchema.safeParse("\ud800").success).toBe(false);
 });
 it("rejects unsafe revisions, bad mutation IDs and client-supplied ownership", () => {
   for (const changes of [{ baseVersion: -1 }, { baseVersion: 0.5 }, { baseVersion: Number.MAX_SAFE_INTEGER + 1 }, { mutationId: "bad" }, { ownerId: id }]) {
@@ -92,7 +94,7 @@ it("fake adapter exposes failed writes without changing the last acknowledged te
   expect(await store.write(a, request("Newer", 1, nextId))).toMatchObject({ kind: "failed" });
   expect(await store.read(a)).toMatchObject({ kind: "loaded", entry: { content: "First", version: 1 } });
 });
-const record = () => ({ schemaVersion: 1, key: { ownerId: id, date: a, writerId: nextId }, content: "Newer local draft", revision: 2, baseVersion: 0, updatedAt,
+const record = () => ({ schemaVersion: 1, key: { workspaceId: "w1_" + "a".repeat(43), date: a, writerId: nextId }, content: "Newer local draft", revision: 2, baseVersion: 0, updatedAt,
   pending: mutationSnapshotSchema.parse({ date: a, revision: 1, request: request("Earlier immutable snapshot") }) });
 it("recovery records preserve a newer local draft and exact unresolved snapshot separately", () => {
   const parsed = recoveryRecordSchema.parse(record());
@@ -112,5 +114,5 @@ it("recovery record validation rejects cross-date, future-revision, mismatched-b
     expect(recoveryRecordSchema.safeParse({ ...original, pending }).success).toBe(false);
   }
   expect(recoveryRecordSchema.safeParse({ ...original, schemaVersion: 2 }).success).toBe(false);
-  expect(recoveryRecordSchema.safeParse({ ...original, key: { ...original.key, ownerId: "preview-owner" } }).success).toBe(false);
+  expect(recoveryRecordSchema.safeParse({ ...original, key: { ...original.key, workspaceId: "preview-owner" } }).success).toBe(false);
 });

@@ -17,3 +17,7 @@ FR-19 is mandatory. Phase 1 supplies synthetic scenario seeds and the test runne
 Use `fixtures/recovery-scenarios.json` as synthetic seeds, not as a substitute for real PostgreSQL and browser IndexedDB. Add controlled request barriers and fake debounce timers. Each recovery test must inspect final server content/version **and** the exact retained/removed local record. Device-only persistence may say “Draft stored on this device”; only a current server acknowledgement may say “Saved”.
 
 No recovery tests run in Phase 1. Browser coverage here verifies only the foundation and token delivery. Mobile keyboard behavior, recovery failures, and visual fidelity remain later acceptance gates.
+
+## Phase 6 executable evidence
+
+The Phase 6 implementation now supplies `tests/unit/autosave.test.ts`, `tests/diary/database.test.mjs`, `tests/e2e/persistence.spec.ts` and `tests/e2e/recovery-store.spec.ts`. These exercise fake-timer/barrier races, actual controlled PostgreSQL functions, actual IndexedDB transactions and production-browser journeys. The early JSON seeds remain illustrative scenario inputs, not owner keys or a storage schema. Browser recovery uses the authenticated opaque workspace namespace rather than exposing the internal owner UUID. See `docs/phase-6-report.md` and `docs/phase-6-persistence-and-recovery.md` for final results, schema, limitations and rollout boundaries.

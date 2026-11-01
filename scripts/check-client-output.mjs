@@ -14,7 +14,7 @@ const privateValues = [...sentinels];
 for (const key of ["BETTER_AUTH_SECRET", "AUTH_DERIVATION_SECRET", "BREVO_API_KEY"]) {
   if (process.env[key]) privateValues.push(process.env[key]);
 }
-for (const key of ["DATABASE_URL", "DATABASE_URL_UNPOOLED", "AUTH_DATABASE_URL"]) {
+for (const key of ["DATABASE_URL", "DATABASE_URL_UNPOOLED", "AUTH_DATABASE_URL", "DIARY_DATABASE_URL"]) {
   const value = process.env[key];
   if (!value) continue;
   privateValues.push(value);

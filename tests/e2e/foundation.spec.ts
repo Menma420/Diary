@@ -8,7 +8,7 @@ test("diary preview loads without overflow, browser errors, or false save feedba
   await expect(page).toHaveTitle("Dear Diary");
   await expect(page.getByRole("heading", { name: /MY LITTLE DIARY/ })).toBeVisible();
   await expect(page.getByRole("textbox", { name: "Diary writing preview" })).toBeVisible();
-  await expect(page.getByText("Preview · not saved")).toBeVisible();
+  await expect(page.getByText("Up to date", {exact:true})).toBeVisible();
   await expect(page.getByText(/^Saved$/)).toHaveCount(0);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth)).toBe(true);
   expect(errors).toEqual([]);

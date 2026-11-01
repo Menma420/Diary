@@ -97,3 +97,10 @@ test("signing-key rotation leaves existing durable buckets and privacy identitie
   const rows = await fixture.admin.query("SELECT key FROM private.auth_rate_limit WHERE key=$1", [digest]);
   assert.equal(rows.rowCount, 1); assert.ok(!rows.rows[0].key.includes("privacy@example.invalid"));
 });
+
+test("auth runtime rejects accidental inheritance of diary mutation capability",async()=>{
+  await fixture.admin.query("GRANT diary_entry_runtime TO diary_auth_fixture");
+  try { await assert.rejects(assertAuthRuntime(fixture.runtime)); }
+  finally { await fixture.admin.query("REVOKE diary_entry_runtime FROM diary_auth_fixture"); }
+  await assertAuthRuntime(fixture.runtime);
+});

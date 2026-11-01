@@ -1,0 +1,8 @@
+{
+  "result": "passed",
+  "filesScanned": 218,
+  "configuredPrivateValuesPrinted": false,
+  "envLocalTracked": false,
+  "neonTracked": false,
+  "scope": "Tracked and non-ignored untracked files including reports and PNG bytes; configured private credential values and high-confidence secret patterns."
+}

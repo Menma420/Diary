@@ -4,6 +4,7 @@ test("native typing, clipboard paste and undo redo survive controlled editor ren
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/diary/31/10/2026");
   const editor = page.getByRole("textbox", { name: "Diary writing preview" });
+  await expect(editor).toBeEditable();
   await editor.focus(); await editor.pressSequentially("A quiet day");
   const pasted = "\n  Pasted 🌸 日本語\nSecond paragraph  ";
   await page.evaluate((text) => navigator.clipboard.writeText(text), pasted);
@@ -18,7 +19,7 @@ test("native typing, clipboard paste and undo redo survive controlled editor ren
     expect(await editor.evaluate((node: HTMLTextAreaElement) => [node.selectionStart, node.selectionEnd, node.selectionDirection])).toEqual([2, 8, "backward"]);
     await expect(editor).toHaveValue(`A quiet day${pasted}`);
   }
-  await expect(page.getByText("Preview · not saved")).toBeVisible();
+  await expect(page.locator("#preview-notice")).toHaveText(/Unsaved changes|Saving to server…|Saved/);
 });
 
 test("long date-owned drafts restore selection and document scroll through history", async ({ page }) => {

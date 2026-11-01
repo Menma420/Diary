@@ -107,3 +107,8 @@
   .footer > div { width: 100%; text-align: center; }
   .previewNotice { margin-inline: auto; }
 }
+
+.previewNotice p { margin: 0; }
+.recoveryNotice { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.conflict { max-height: 85dvh; overflow-y: auto; }
+.conflict pre { white-space: pre-wrap; overflow-wrap: anywhere; font: inherit; padding: 0.75rem; border: 1px solid var(--color-paper-border); }

@@ -3,6 +3,7 @@ import { createContext, useCallback, useContext, useEffect, useLayoutEffect, use
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import type { PublicAccess } from "@/lib/auth/owner";
+import type { SaveController } from "@/lib/diary/save-controller";
 import type { CalendarDate } from "@/lib/dates";
 import { DiarySession } from "@/components/diary/DiarySession";
 import { DiaryPreview } from "@/components/diary/DiaryPreview";
@@ -22,9 +23,11 @@ export function DiaryRoute({ date, access }: { date: CalendarDate; access: Publi
 }
 export function DiaryAccess({ initial, timeZone, children }: { initial: PublicAccess; timeZone: string; children: ReactNode }) {
   const router = useRouter();
+  const persistence = useRef<SaveController | null>(null);
   const [workspaceId, setWorkspaceId] = useState(initial.kind === "owner" ? initial.workspaceId : null);
   const [access, setAccess] = useState<PublicAccess>(initial);
   const [date, setDate] = useState<CalendarDate | null>(null);
+  const routeVersion=useRef(0);
   const pendingDate = useRef<CalendarDate | null>(null);
   const version = useRef(0); const focus = useRef<{ node: HTMLTextAreaElement; start: number; end: number; direction: "forward" | "backward" | "none"; y: number } | null>(null);
   const dialog = useRef<HTMLDialogElement>(null); const lock = useRef<HTMLDivElement>(null);
@@ -45,7 +48,15 @@ export function DiaryAccess({ initial, timeZone, children }: { initial: PublicAc
     // A cached RSC/prefetch result must never unlock a previously locked workspace.
     // Only the fresh no-store session check after reauthentication may do that.
     if (next.kind === "owner" && workspaceId) {
-      if (next.workspaceId === workspaceId) setDate(nextDate);
+      if (next.workspaceId === workspaceId) {
+        const navigation=++routeVersion.current;
+        // Guard incoming routes too, including browser history. The mounted
+        // outgoing editor stays present until its recovery transaction settles.
+        void (async () => {
+          await persistence.current?.flushLocal();
+          if (navigation===routeVersion.current) setDate(nextDate);
+        })();
+      }
       else accept({ kind: "forbidden" });
     } else accept(next);
   }, [accept, workspaceId]);
@@ -80,15 +91,18 @@ export function DiaryAccess({ initial, timeZone, children }: { initial: PublicAc
     if (result.kind !== "owner" || (workspaceId && result.workspaceId !== workspaceId)) throw new Error("This identity cannot unlock the existing workspace.");
     router.refresh();
   }
+  const lockOwner=useCallback(() => { remember(); setAccess({ kind: "anonymous" }); },[remember]);
   async function logout() {
     setLoggingOut(true); setLogoutError("");
-    try { await authPost("sign-out", {}); version.current++; dialog.current?.close(); setDate(null); setWorkspaceId(null); setAccess({ kind: "anonymous" }); focus.current = null; router.replace("/login"); router.refresh(); }
+    try {
+      if (persistence.current && !await persistence.current.flush()) { setLogoutError("Writing is unresolved. Sign out was paused; your drafts remain available. Keep writing and retry saving or resolve the conflict first."); return; }
+      await authPost("sign-out", {}); version.current++; routeVersion.current++; dialog.current?.close(); setDate(null); setWorkspaceId(null); setAccess({ kind: "anonymous" }); focus.current = null; router.replace("/login"); router.refresh(); }
     catch { setLogoutError("Sign out could not be confirmed. Your writing remains in this tab. Retry when the connection is available."); }
     finally { setLoggingOut(false); }
   }
   return <RouteContext.Provider value={activate}>
     {children}
-    {workspaceId && <DiarySession key={workspaceId} timeZone={timeZone}>
+    {workspaceId && <DiarySession key={workspaceId} timeZone={timeZone} workspaceId={workspaceId} active={permitted} onLock={lockOwner} controllerRef={persistence}>
       <LogoutContext.Provider value={() => { setLogoutError(""); dialog.current?.showModal(); }}>
         <div inert={!permitted} aria-hidden={!permitted} style={!permitted ? { visibility: "hidden" } : undefined}>
           {date && <DiaryPreview key={date} date={date} mode={permitted ? "editable" : "read-only"} />}
@@ -100,10 +114,10 @@ export function DiaryAccess({ initial, timeZone, children }: { initial: PublicAc
     </main>}
     <dialog className={styles.dialog} ref={dialog} aria-labelledby="logout-title">
       <h2 id="logout-title">Leave this writing session?</h2>
-      <p>Writing is only held in this tab and has not been saved. Signing out discards all temporary drafts. You can cancel and keep writing.</p>
+      <p>We will try to save unresolved writing before signing out. If saving fails, this session stays open and your drafts are preserved. You can cancel and keep writing.</p>
       <p role="alert">{logoutError}</p>
       <button className={styles.action} onClick={() => dialog.current?.close()} disabled={loggingOut} autoFocus>Keep writing</button>{" "}
-      <button className={styles.action} onClick={() => void logout()} disabled={loggingOut}>Discard drafts and sign out</button>
+      <button className={styles.action} onClick={() => void logout()} disabled={loggingOut}>Save and sign out</button>
     </dialog>
   </RouteContext.Provider>;
 }

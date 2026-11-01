@@ -7,6 +7,8 @@ export async function assertAuthRuntime(pool: Pool) {
   const { rows } = await pool.query<{ unsafe: boolean }>(`SELECT
     EXISTS (SELECT 1 FROM pg_roles r WHERE pg_has_role(current_user, r.oid, 'MEMBER')
       AND (r.rolsuper OR r.rolcreaterole OR r.rolcreatedb OR r.rolbypassrls))
+    OR EXISTS (SELECT 1 FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace
+      WHERE n.nspname='diary' AND p.proname IN ('read_entry','write_entry') AND has_function_privilege(current_user,p.oid,'EXECUTE'))
     OR has_database_privilege(current_user, current_database(), 'CREATE')
     OR has_schema_privilege(current_user, 'public', 'CREATE')
     OR has_schema_privilege(current_user, 'private', 'CREATE')

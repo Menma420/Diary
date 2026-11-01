@@ -1,0 +1,44 @@
+[
+  {
+    "view": "diary-desktop-sakura-pink.png",
+    "geometryEqual": true,
+    "headerAndPaperPixelsDifferent": 13,
+    "maximumChannelDifference": 2,
+    "overflow": false
+  },
+  {
+    "view": "diary-desktop-dreamy-sky.png",
+    "geometryEqual": true,
+    "headerAndPaperPixelsDifferent": 0,
+    "maximumChannelDifference": 0,
+    "overflow": false
+  },
+  {
+    "view": "diary-desktop-lavender-dreams.png",
+    "geometryEqual": true,
+    "headerAndPaperPixelsDifferent": 0,
+    "maximumChannelDifference": 0,
+    "overflow": false
+  },
+  {
+    "view": "diary-desktop-vintage-journal.png",
+    "geometryEqual": true,
+    "headerAndPaperPixelsDifferent": 0,
+    "maximumChannelDifference": 0,
+    "overflow": false
+  },
+  {
+    "view": "diary-mobile-390-sakura-pink.png",
+    "geometryEqual": true,
+    "headerAndPaperPixelsDifferent": 0,
+    "maximumChannelDifference": 0,
+    "overflow": false
+  },
+  {
+    "view": "diary-mobile-320-sakura-pink.png",
+    "geometryEqual": true,
+    "headerAndPaperPixelsDifferent": 31,
+    "maximumChannelDifference": 2,
+    "overflow": false
+  }
+]

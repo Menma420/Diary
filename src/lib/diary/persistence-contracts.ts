@@ -1,10 +1,13 @@
 import { z } from "zod";
-import { parseCalendarDate, type CalendarDate } from "@/lib/dates";
+import { parseCalendarDate, type CalendarDate } from "../dates.ts";
 
-// Wire/storage boundaries only. No application adapter or save controller is active.
+// Validation must work under the existing strict CSP without dynamic code generation.
+z.config({ jitless: true });
+
+// Validated server and device boundaries. Ownership is resolved by the server.
 export const calendarDateSchema = z.string().refine((value) => parseCalendarDate(value) !== null, "Invalid calendar date")
   .transform((value) => parseCalendarDate(value)!);
-export const entryContentSchema = z.string().refine((value) => !value.includes("\0"), "Unsupported null character")
+export const entryContentSchema = z.string().refine((value) => value.isWellFormed(), "Invalid Unicode text").refine((value) => !value.includes("\0"), "Unsupported null character")
   .refine((value) => new TextEncoder().encode(value).byteLength <= 256 * 1024, "Content exceeds 256 KiB");
 const version = z.number().int().nonnegative().max(Number.MAX_SAFE_INTEGER);
 const revision = version;
@@ -40,12 +43,12 @@ export const mutationSnapshotSchema = z.strictObject({ date: calendarDateSchema,
 export type MutationSnapshot = z.infer<typeof mutationSnapshotSchema>;
 export function parseAcknowledgement(mutation: MutationSnapshot, input: unknown): Acknowledgement {
   const acknowledgement = acknowledgementSchema.parse(input);
-  if (acknowledgement.date !== mutation.date || acknowledgement.mutationId !== mutation.request.mutationId ||
+  if (acknowledgement.date !== mutation.date || acknowledgement.mutationId.toLowerCase() !== mutation.request.mutationId.toLowerCase() ||
     acknowledgement.version !== mutation.request.baseVersion + 1) throw new RangeError("Acknowledgement does not match mutation");
   return acknowledgement;
 }
 
-// Future server status, separate from editor dirty state and device durability.
+// Server status, separate from editor dirty state and device durability.
 // Saved requires an acknowledgement of the latest local revision, matching the
 // exact date/mutation/version; acknowledging an older revision leaves it unsaved.
 export type SaveState =
@@ -58,8 +61,8 @@ export type SaveState =
   | { status: "save-failed"; mutation: MutationSnapshot; error: PersistenceFailure }
   | { status: "conflict"; mutation: MutationSnapshot; current: EntrySnapshot };
 
-// v1.1 requires this shape for Phase 6. These are contracts, not durable storage.
-export const recoveryKeySchema = z.strictObject({ ownerId: z.uuid(), date: calendarDateSchema, writerId: z.uuid() }).readonly();
+// Versioned device boundary, implemented by IndexedRecovery in Phase 6.
+export const recoveryKeySchema = z.strictObject({ workspaceId: z.string().regex(/^w1_[A-Za-z0-9_-]{43}$/), date: calendarDateSchema, writerId: z.uuid() }).readonly();
 export type RecoveryKey = z.infer<typeof recoveryKeySchema>;
 export const recoveryRecordSchema = z.strictObject({ schemaVersion: z.literal(1), key: recoveryKeySchema,
   // Keep unsaveable drafts too. Server validation must not destroy local writing.
@@ -72,12 +75,16 @@ export type RecoveryRecord = z.infer<typeof recoveryRecordSchema>;
 export type RecoveryResult<T> = { ok: true; value: T } | { ok: false; reason: "unavailable" | "quota" | "blocked" | "schema" | "transaction" | "stale" };
 export interface RecoveryStorage {
   // Enumerate all dates/writers for the verified owner, never choose by timestamp.
-  readOwner(ownerId: string): Promise<RecoveryResult<readonly RecoveryRecord[]>>;
+  readOwner(workspaceId: string): Promise<RecoveryResult<readonly RecoveryRecord[]>>;
   // Serialize commits and acknowledgements. One transaction: reject stale
   // revisions/base versions and changed equal-revision content/pending metadata;
   // never resurrect an acknowledged mutation through an older queued commit.
-  commit(record: RecoveryRecord): Promise<RecoveryResult<void>>;
+  // supersedes is allowed only for an explicit conflict choice, matching the
+  // complete prior record in the same transaction. Ordinary edits retain pending identity.
+  commit(record: RecoveryRecord, supersedes?: RecoveryRecord): Promise<RecoveryResult<void>>;
   // One transaction: match pending ID/revision, update base, clear only that
   // mutation; remove only if latest revision equals the acknowledged revision.
   acknowledge(key: RecoveryKey, mutation: MutationSnapshot, acknowledgement: Acknowledgement): Promise<RecoveryResult<void>>;
+  // Deliberate resolution only; compare the entire record before discarding.
+  discard(record: RecoveryRecord): Promise<RecoveryResult<void>>;
 }

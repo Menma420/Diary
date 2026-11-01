@@ -20,6 +20,7 @@ async function forgedSession(context: BrowserContext, user = "fixture-other", ex
 test.beforeEach(async () => {
   await resetLimits(); const pool = await fixtureAdmin();
   try {
+    await pool.query("TRUNCATE diary.entries, diary.mutations");
     await pool.query('UPDATE auth_user SET "emailVerified"=true');
     await pool.query("UPDATE auth_account SET password=$1", [await hashPassword(password)]);
     await pool.query("DELETE FROM auth_session; DELETE FROM auth_verification");
@@ -172,7 +173,7 @@ test("expiry locks writing and same-owner reauthentication preserves node, selec
   await expect(editor).toBeVisible(); await expect(editor).toHaveValue(text); await expect(editor).toHaveAttribute("data-original", "yes"); await expect(editor).toBeFocused();
   expect(await editor.evaluate((node: HTMLTextAreaElement) => [node.selectionStart, node.selectionEnd, node.selectionDirection])).toEqual([4, 12, "backward"]);
   expect(await page.evaluate(() => window.scrollY)).toBe(500);
-  await expect(page).toHaveURL(/31\/10\/2026$/); await expect(page.getByText("Preview · not saved")).toBeVisible();
+  await expect(page).toHaveURL(/31\/10\/2026$/); await expect(page.locator("#preview-notice")).not.toHaveText("Loading diary…");
 });
 test("different identity cannot inherit an existing workspace", async ({ page, context }) => {
   await login(context.request); await page.goto("/diary/31/10/2026"); await page.locator("#diary-writing").fill("Private synthetic draft");
@@ -182,6 +183,7 @@ test("different identity cannot inherit an existing workspace", async ({ page, c
   await expect(page.locator("#diary-writing")).toHaveValue("Private synthetic draft");
 });
 test("a different verified owner pseudonym cannot unlock the retained workspace", async ({ page, context }) => {
+  await page.route("**/api/entries/**", async route => route.request().method()==="PUT" ? route.fulfill({status:503,json:{error:"Synthetic unavailable"}}) : route.continue());
   await login(context.request); await page.goto("/diary/31/10/2026");
   await page.locator("#diary-writing").fill("Original workspace stays private");
   const original = await (await context.request.get("/api/session")).json();
@@ -207,12 +209,12 @@ test("a different verified owner pseudonym cannot unlock the retained workspace"
   await expect(page.locator("#diary-writing")).toBeVisible();
   await expect(page.locator("#diary-writing")).toHaveValue("Original workspace stays private");
 });
-test("logout warns, cancellation retains writing, deliberate discard revokes session", async ({ page, context }) => {
+test("logout warns, cancellation retains writing, confirmed flush revokes session", async ({ page, context }) => {
   await login(context.request); await page.goto("/diary/31/10/2026"); await page.locator("#diary-writing").fill("Unsaved writing");
   await page.getByRole("button", { name: "Sign out", exact: true }).click(); await expect(page.getByRole("dialog")).toBeVisible();
   expect((await new AxeBuilder({ page }).withTags(["wcag2a", "wcag2aa"]).analyze()).violations).toEqual([]);
   await page.getByRole("button", { name: "Keep writing" }).click(); await expect(page.locator("#diary-writing")).toHaveValue("Unsaved writing");
-  await page.getByRole("button", { name: "Sign out", exact: true }).click(); await page.getByRole("button", { name: "Discard drafts and sign out" }).click();
+  await page.getByRole("button", { name: "Sign out", exact: true }).click(); await page.getByRole("button", { name: "Save and sign out" }).click();
   await expect(page).toHaveURL(/\/login$/); await expect(page.locator("#diary-writing")).toHaveCount(0);
   expect((await context.request.get("/api/session")).status()).toBe(401);
 });
@@ -235,40 +237,40 @@ test("recovery forms are accessible and token fragments never reach requests or 
   await page.getByRole("button", { name: "Hide password" }).click();
   await page.getByRole("button", { name: "Sign in", exact: true }).click(); await expect(page.getByRole("alert").filter({ hasText: "Unable to complete" })).toBeVisible();
 });
-test("capture production Phase 5 review views and layout measurements", async ({ browser }, info) => {
+test("capture production Phase 6 review views and layout measurements", async ({ browser }, info) => {
   const name = info.project.name === "chromium" ? "desktop" : info.project.name === "mobile-390" ? "mobile-390" : "mobile-320";
   // Match the Phase 4 capture's CSS-pixel/DPR-1 evidence. The other tests run
   // against the real Pixel device emulation at both mobile widths.
   const context = await browser.newContext({ viewport: name === "desktop" ? { width: 1053, height: 662 } : name === "mobile-390" ? { width: 390, height: 844 } : { width: 320, height: 740 }, deviceScaleFactor: 1, isMobile: false, hasTouch: false, reducedMotion: "reduce" });
   const page = await context.newPage();
   try {
-  await mkdir("artifacts/phase-5", { recursive: true });
-  await page.goto("/login"); await page.screenshot({ path: `artifacts/phase-5/login-${name}.png`, fullPage: true });
+  await mkdir("artifacts/phase-6", { recursive: true });
+  await page.goto("/login"); await page.screenshot({ path: `artifacts/phase-6/login-${name}.png`, fullPage: true });
   await login(context.request); await page.goto("/diary/31/10/2026");
   await expect(page.locator("#diary-writing")).toBeVisible();
   await page.evaluate(async () => { await document.fonts.ready; await Promise.all([...document.images].map(image => image.decode())); });
   const measurements = [];
   for (const theme of name === "desktop" ? ["sakura-pink", "dreamy-sky", "lavender-dreams", "vintage-journal"] : ["sakura-pink"]) {
     await page.getByRole("combobox", { name: "Theme preview" }).selectOption(theme); await page.getByRole("combobox").blur();
-    await page.screenshot({ path: `artifacts/phase-5/diary-${name}-${theme}.png`, fullPage: true });
+    await page.screenshot({ path: `artifacts/phase-6/diary-${name}-${theme}.png`, fullPage: true });
     measurements.push(await page.evaluate(() => {
       const box = (selector: string) => { const r = document.querySelector(selector)!.getBoundingClientRect(); return { x: r.x, y: r.y, width: r.width, height: r.height }; };
       return { theme: document.documentElement.dataset.theme, paper: box('section[aria-label="Diary paper"]'), editor: box("textarea"), overflow: document.documentElement.scrollWidth > innerWidth, lineHeight: getComputedStyle(document.querySelector("textarea")!).lineHeight };
     }));
   }
-  await writeFile(`artifacts/phase-5/layout-${name}.json`, `${JSON.stringify(measurements, null, 2)}\n`);
+  await writeFile(`artifacts/phase-6/layout-${name}.json`, `${JSON.stringify(measurements, null, 2)}\n`);
   if (name === "desktop") {
     await page.getByRole("combobox", { name: "Theme preview" }).selectOption("sakura-pink");
-    await page.locator("#diary-writing").fill("Synthetic review draft — retained through reauthentication.\nThis writing has not been saved.");
-    await page.screenshot({ path: "artifacts/phase-5/editing-before-reauthentication.png", fullPage: true });
+    await page.locator("#diary-writing").fill("Synthetic Phase 6 review writing.\nOnly disposable fixture data.");
+    await page.screenshot({ path: "artifacts/phase-6/editing-before-reauthentication.png", fullPage: true });
     const pool = await fixtureAdmin(); try { await pool.query("DELETE FROM auth_session"); } finally { await pool.end(); }
     await page.evaluate(() => window.dispatchEvent(new Event("focus"))); await expect(page.getByRole("heading", { name: "Sign in to continue writing" })).toBeVisible();
-    await page.screenshot({ path: "artifacts/phase-5/reauthentication.png", fullPage: true });
+    await page.screenshot({ path: "artifacts/phase-6/reauthentication.png", fullPage: true });
     await page.getByLabel("Email", { exact: true }).fill(email); await page.getByLabel("Password", { exact: true }).fill(password);
     await page.getByRole("button", { name: "Sign in", exact: true }).click(); await expect(page.locator("#diary-writing")).toBeVisible();
-    await expect(page.locator("#diary-writing")).toHaveValue("Synthetic review draft — retained through reauthentication.\nThis writing has not been saved.");
-    await page.screenshot({ path: "artifacts/phase-5/editing-after-reauthentication.png", fullPage: true });
-    await page.goto("/recover"); await page.screenshot({ path: "artifacts/phase-5/recovery.png", fullPage: true });
+    await expect(page.locator("#diary-writing")).toHaveValue("Synthetic Phase 6 review writing.\nOnly disposable fixture data.");
+    await page.screenshot({ path: "artifacts/phase-6/editing-after-reauthentication.png", fullPage: true });
+    await page.goto("/recover"); await page.screenshot({ path: "artifacts/phase-6/recovery.png", fullPage: true });
   }
   } finally { await context.close(); }
 });

@@ -1,0 +1,71 @@
+{
+  "phase": 6,
+  "environment": "Local production build, disposable PostgreSQL TLS, synthetic owners/mail sink, actual Chromium IndexedDB",
+  "branch": "main",
+  "baseCommit": "4484ac28ed38ec0841f53e6c8a75f48fb08b5e1e",
+  "result": "passed",
+  "commands": {
+    "pnpm install --frozen-lockfile": "passed; lockfile unchanged",
+    "pnpm tokens:check": "passed",
+    "pnpm lint": "passed; zero warnings",
+    "pnpm typecheck": "passed",
+    "pnpm test": {
+      "passed": 175,
+      "failed": 0,
+      "skipped": 0,
+      "files": 11
+    },
+    "pnpm test:auth": {
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pnpm test:diary": {
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pnpm build": "passed",
+    "pnpm check:client": {
+      "result": "passed",
+      "assetsOrPayloads": 28
+    },
+    "pnpm test:e2e": {
+      "passed": 183,
+      "failed": 0,
+      "skipped": 0,
+      "projects": {
+        "chromium": 61,
+        "mobile-chromium": 61,
+        "mobile-390": 61
+      },
+      "durationReported": "4.1 minutes"
+    },
+    "git diff --check": "passed"
+  },
+  "accessibility": {
+    "axeScans": 42,
+    "violations": 0,
+    "withinPlaywright": true
+  },
+  "migration": {
+    "path": "migrations/diary/001_entries.sql",
+    "sha256": "0e1b79cb7b5ef5a8fef7dcc71e89dd0d37d749405c00f0367e9ab8d50b8110a9",
+    "appliedOnlyToDisposableFixtures": true
+  },
+  "databaseEngine": "PostgreSQL 14.24",
+  "dependenciesAdded": [],
+  "dependenciesUpgraded": [],
+  "noProductionMigrationsOrDataChanges": true,
+  "noProductionRoleOrSecretChanges": true,
+  "noOwnerOperations": true,
+  "noRealEmails": true,
+  "noFrontendDeployment": true,
+  "noCommit": true,
+  "noPush": true,
+  "phase7Started": false,
+  "remoteCI": "Not executed; publication is excluded",
+  "visualEvidence": "artifacts/phase-6/visual-comparison.json",
+  "fileInventory": "artifacts/phase-6/file-manifest.json",
+  "securityAudit": "artifacts/phase-6/security-audit.json"
+}

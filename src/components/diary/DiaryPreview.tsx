@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useRef, type PointerEvent } from "react";
+import { useCallback, useRef, useSyncExternalStore, type PointerEvent } from "react";
 import { useRouter } from "next/navigation";
 import { diaryPath, formatDate, type CalendarDate } from "@/lib/dates";
 import type { ThemeId } from "@/themes/themes";
@@ -10,15 +10,18 @@ import { DiaryPaper } from "./DiaryPaper";
 import styles from "./DiaryPreview.module.css";
 import { useDiaryEditor } from "./useDiaryEditor";
 import type { EditorMode } from "@/lib/diary/editor-model";
+import { SaveFeedback, RecoveryNotice } from "./SaveFeedback";
 import { LogoutControl } from "@/components/auth/SessionControls";
 
 type Selection = { start: number; end: number; direction: "forward" | "backward" | "none"; control: HTMLElement };
 
 export function DiaryPreview({ date, mode = "editable" }: { date: CalendarDate; mode?: EditorMode }) {
   const router = useRouter();
-  const { focusRef, theme, setTheme, timeZone } = useDiarySession();
+  const { focusRef, theme, setTheme, timeZone, persistence } = useDiarySession();
+  const status = useSyncExternalStore(persistence?.subscribe ?? (() => () => {}), () => persistence?.snapshot(date) ?? null, () => null);
   const binding = useDiaryEditor(date);
   const editor = useRef<HTMLTextAreaElement>(null);
+  const navigationVersion=useRef(0);
   const calendarTrigger = useRef<HTMLButtonElement>(null);
   const selection = useRef<Selection | null>(null);
   const restore = useCallback(() => {
@@ -49,7 +52,8 @@ export function DiaryPreview({ date, mode = "editable" }: { date: CalendarDate; 
     }
   }
 
-  function changeDate(next: CalendarDate, calendar = false) {
+  async function changeDate(next: CalendarDate, calendar = false) {
+    const generation=++navigationVersion.current;
     const node = editor.current;
     if (node) binding.capture(node);
     if (next === date) {
@@ -63,6 +67,8 @@ export function DiaryPreview({ date, mode = "editable" }: { date: CalendarDate; 
     focusRef.current = node && (calendar || fromWriting)
       ? { date: next, source: node, control: calendar ? calendarTrigger.current! : remembered!.control, calendar }
       : null;
+    if (persistence) await persistence.flushLocal();
+    if (generation!==navigationVersion.current) return;
     router.push(diaryPath(next), { scroll: false });
   }
 
@@ -85,14 +91,15 @@ export function DiaryPreview({ date, mode = "editable" }: { date: CalendarDate; 
           onDateChange={changeDate}
           onThemeChange={changeTheme}
         />
-        <DiaryPaper date={{ value: date, label: formatDate(date) }} binding={binding} mode={mode} editorRef={editor} onReady={restore} />
+        <DiaryPaper date={{ value: date, label: formatDate(date) }} binding={binding} mode={mode === "read-only" || (persistence && (!status || !status.ready || ["loading","load-failed","conflict"].includes(status.phase))) ? "read-only" : "editable"} editorRef={editor} onReady={restore} />
         <footer className={styles.footer}>
           <div>
             <p className={styles.caption}>A little space for your thoughts <span aria-hidden="true">♡</span></p>
             <p className={styles.assetNote}><span>Temporary original illustrations</span><LogoutControl /></p>
           </div>
-          <p id="preview-notice" className={styles.previewNotice}>Preview · not saved</p>
+          <SaveFeedback date={date} />
         </footer>
+        <RecoveryNotice currentDate={date} />
       </div>
     </main>
   );

@@ -16,8 +16,8 @@ test("exact URLs, refresh and browser history retain date-owned drafts", async (
   expect(await editor.evaluate((node: HTMLTextAreaElement) => [node.selectionStart, node.selectionEnd, node.selectionDirection])).toEqual([2, 6, "backward"]);
   await page.goBack(); await expect(editor).toHaveValue("Date B");
   await page.goForward(); await expect(editor).toHaveValue("Date A 🌸\n  whitespace");
-  await page.reload(); await expect(page.locator("time")).toHaveText("31/10/2026"); await expect(editor).toHaveValue("");
-  await expect(page.getByText("Preview · not saved")).toBeVisible();
+  await page.reload(); await expect(page.locator("time")).toHaveText("31/10/2026"); await expect(editor).toHaveValue("Date A 🌸\n  whitespace");
+  await expect(page.locator("#preview-notice")).not.toHaveText("Loading diary…");
 });
 
 test("fast date switching retains isolated text and explicitly cleared content", async ({ page }) => {

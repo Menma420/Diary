@@ -22,7 +22,8 @@
     "tokens:generate": "node scripts/theme-css.mjs --write",
     "tokens:check": "node scripts/theme-css.mjs",
     "check:client": "node scripts/check-client-output.mjs",
-    "neon:check": "node scripts/check-neon.mjs"
+    "neon:check": "node scripts/check-neon.mjs",
+    "test:diary": "node --conditions=react-server --test tests/diary/database.test.mjs"
   },
   "dependencies": {
     "@neon/config": "1.10.0",
