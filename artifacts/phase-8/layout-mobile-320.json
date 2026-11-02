@@ -1,0 +1,19 @@
+[
+  {
+    "theme": "sakura-pink",
+    "paper": {
+      "x": 20,
+      "y": 91.390625,
+      "width": 280,
+      "height": 551.125
+    },
+    "editor": {
+      "x": 37,
+      "y": 230.390625,
+      "width": 246,
+      "height": 272
+    },
+    "overflow": false,
+    "lineHeight": "34px"
+  }
+]

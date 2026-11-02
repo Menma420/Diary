@@ -45,6 +45,8 @@ jobs:
         run: pnpm env:check --integrations
       - name: Verify generated theme CSS
         run: pnpm tokens:check
+      - name: Validate frozen decoration assets
+        run: pnpm decorations:check
       - name: Lint
         run: pnpm lint
       - name: Type check

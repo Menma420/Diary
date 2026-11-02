@@ -13,14 +13,14 @@ async function retrySettings(page:Page){await page.getByRole('button',{name:'Set
 async function records(page:Page){return page.evaluate(()=>new Promise<unknown[]>((resolve,reject)=>{const request=indexedDB.open('dear-diary-recovery',1);request.onerror=()=>reject(Error('Fixture recovery read failed'));request.onsuccess=()=>{const db=request.result,tx=db.transaction('drafts','readonly'),all=tx.objectStore('drafts').getAll();all.onsuccess=()=>resolve(all.result);tx.oncomplete=()=>db.close();};}));}
 test('defaults, four themes, authenticated refresh and new login retain server preferences before first paint',async({page,context},info)=>{
  await open(page);expect(await read(context.request)).toMatchObject({theme:'sakura-pink',timezone:'Asia/Kolkata',version:0});
- await mkdir('artifacts/phase-7',{recursive:true});
+ await mkdir('artifacts/phase-8',{recursive:true});
  for(const theme of themes){
   await page.getByRole('combobox',{name:'Theme preview'}).selectOption(theme);
   if(theme!=='sakura-pink')await settingsSaved(page);
   await expect(page.locator('html')).toHaveAttribute('data-theme',theme);
   const response=await context.request.get('/diary/01/11/2026');expect(await response.text()).toMatch(new RegExp(`<html[^>]*data-theme="${theme}"`));
   await page.reload();await expect(page.locator('#diary-writing')).toBeEditable();await expect(page.locator('html')).toHaveAttribute('data-theme',theme);
-  await page.screenshot({path:`artifacts/phase-7/theme-${info.project.name}-${theme}.png`,fullPage:true});
+  await page.screenshot({path:`artifacts/phase-8/theme-${info.project.name}-${theme}.png`,fullPage:true});
  }
  await page.getByRole('button',{name:'Sign out',exact:true}).click();await page.getByRole('button',{name:'Save and sign out'}).click();await expect(page).toHaveURL(/login$/);
  await resetLimits();await page.getByLabel('Email',{exact:true}).fill(email);await page.getByLabel('Password',{exact:true}).fill(password);await page.getByRole('button',{name:'Sign in',exact:true}).click();
@@ -76,7 +76,7 @@ test('settings keyboard, radio previews, validation, focus restoration and all-t
  for(const name of ['Sakura Pink','Dreamy Sky','Lavender Dreams','Vintage Journal']){
   await dialog.getByRole('radio',{name,exact:true}).check();await expect(dialog.getByRole('radio',{name,exact:true})).toBeChecked();expect((await new AxeBuilder({page}).withTags(['wcag2a','wcag2aa','wcag21aa','wcag22aa']).analyze()).violations).toEqual([]);
  }
- await page.screenshot({path:`artifacts/phase-7/settings-${info.project.name}.png`,fullPage:true});
+ await page.screenshot({path:`artifacts/phase-8/settings-${info.project.name}.png`,fullPage:true});
  await page.getByLabel('IANA timezone',{exact:true}).fill('Not/AZone');await page.getByRole('button',{name:'Apply timezone'}).click();await expect(dialog.getByRole('alert')).toContainText('valid IANA');
  await page.keyboard.press('Escape');await expect(dialog).not.toBeVisible();await expect(trigger).toBeFocused();
 });

@@ -21,6 +21,7 @@
     "env:check": "node --env-file-if-exists=.env.local --experimental-strip-types scripts/check-env.ts",
     "tokens:generate": "node scripts/theme-css.mjs --write",
     "tokens:check": "node scripts/theme-css.mjs",
+    "decorations:check": "node scripts/draw-decorations.mjs && node scripts/check-decorations.mjs",
     "check:client": "node scripts/check-client-output.mjs",
     "neon:check": "node scripts/check-neon.mjs",
     "test:diary": "node --conditions=react-server --test tests/diary/database.test.mjs",

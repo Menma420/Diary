@@ -1,0 +1,72 @@
+{
+  "manifestVersion": 1,
+  "arrangementVersion": 1,
+  "manifestSha256": "a4ba15535efed0b5ebeb2a57b7aa8b32c8daf15c80cbbab2b840d202bd4b5905",
+  "algorithmSha256": "4b7282d1dea86e9dbf05a2dde50716dac2190a626097fc0c7d4142efdddd723a",
+  "assets": [
+    {
+      "id": "lavender-cup-v1",
+      "sha256": "388d77b8a7df15cf13225a2088bd915b699bc75fdcd0dcd84e7149b09a6c98d3"
+    },
+    {
+      "id": "lavender-moth-v1",
+      "sha256": "6f42ece81d0786971d4477c416c1a338f3dc3b01b1bdd52ee8316f75732c025b"
+    },
+    {
+      "id": "lavender-orbit-v1",
+      "sha256": "351f4880527fc7866d6e0949d3200083c44b320d48cefff3c4b191133f027d20"
+    },
+    {
+      "id": "lavender-sprig-v1",
+      "sha256": "13653613f9c850f5c12bc63bedf3db5f0dc0cd308e752b680f67221f06e5ed49"
+    },
+    {
+      "id": "sakura-berry-v1",
+      "sha256": "a716f20c23a64de7137d6d19019b373cad79d773274ec5fbda68a65e2cf6da4f"
+    },
+    {
+      "id": "sakura-blossom-v1",
+      "sha256": "5628f82a7ad80de0c2bf882a7f6dc8bc77c563f56af743a0d6fa6a11cedef2ab"
+    },
+    {
+      "id": "sakura-bunny-v1",
+      "sha256": "fbd2d7a64673ca202d4aaef92575248dbbce5a523794b4f966c1d75c9c538ae9"
+    },
+    {
+      "id": "sakura-hearts-v1",
+      "sha256": "50e81a77dd05009301539ce4b5c3f0492b2c6865527f2f23b14df6032083a625"
+    },
+    {
+      "id": "sky-cloud-v1",
+      "sha256": "a59e3b46995a87e8d00b3962ebcfbe287263963e31b4f3f208c9ee7ee5469340"
+    },
+    {
+      "id": "sky-kite-v1",
+      "sha256": "153376e112e434033564b57690c3f18e9b45e3ae75a028fd11f873c282d1fbb5"
+    },
+    {
+      "id": "sky-moon-v1",
+      "sha256": "2ae0ff1e5e0fda752d031d1ce7334326f9c79963b57c460fbec8a87c0b129548"
+    },
+    {
+      "id": "sky-stars-v1",
+      "sha256": "e640d738bc63a72a4878d343be4af406f8e28c5a829640e0e6d0d222dac25428"
+    },
+    {
+      "id": "vintage-book-v1",
+      "sha256": "53e389cdf46735f0dd643c3dccdef1259c60b1117773f5425ae93c4415cf6c83"
+    },
+    {
+      "id": "vintage-leaf-v1",
+      "sha256": "061516c422cd463e2bdf0ec02f6da6948db66836f66411454a57aa713a329112"
+    },
+    {
+      "id": "vintage-letter-v1",
+      "sha256": "2ebfb1d4f746b57ec8f84b2b06858fb7667fdf6959418c4af72e614a9418acf6"
+    },
+    {
+      "id": "vintage-teapot-v1",
+      "sha256": "0de4d39746be9e72fd4c083e29a2cb313434c38de10746517822642afba62cd8"
+    }
+  ]
+}

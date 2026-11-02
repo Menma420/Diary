@@ -2,8 +2,10 @@
 
 Private, single-owner plain-text diary built with Next.js App Router, strict TypeScript, CSS Modules, Zod, Neon PostgreSQL and self-managed Better Auth. The approved Sakura paper, four themes, compact navigation, native textarea and mobile layout remain. Dates display, accept input and route as **DD/MM/YYYY**, for example `/diary/01/11/2026`; internal calendar values remain `YYYY-MM-DD`. Today uses Asia/Kolkata. Supported calendar dates span years 0001–9999, with strict Gregorian validation.
 
-Phases 1–6 are the accepted baseline. Phase 7 persisted themes and timezone are implemented **locally for owner review**. Production migrations, configuration, owner operations, deployment, commit and push require separate approval. Phase 8 has not started. Approved source plans are in `documents/`; later owner decisions retain Neon/Better Auth rather than the original Supabase proposal.
+Phases 1–7 are the accepted baseline. Phase 8 stable themed decorations are implemented **locally for owner review**. Production migrations, configuration, owner operations, deployment, commit and push require separate approval. Phase 9 has not started. Approved source plans are in `documents/`; later owner decisions retain Neon/Better Auth rather than the original Supabase proposal.
 
+- [Phase 8 decoration system](docs/phase-8-decoration-system.md)
+- [Phase 8 local handoff](docs/phase-8-report.md)
 - [Phase 7 preferences contract](docs/phase-7-preferences.md)
 - [Phase 7 handoff](docs/phase-7-report.md)
 - [Phase 6 handoff and verification](docs/phase-6-report.md)
@@ -20,7 +22,7 @@ IndexedDB preserves unresolved writing by opaque owner workspace scope, date and
 
 Authentication remains email/password, closed registration, one operator-bound verified owner and database-backed sessions lasting at most seven days. Every private server operation independently resolves the owner. Public signup is disabled; no browser-supplied identity is trusted. Session expiry retains/locks the mounted editor; same-owner login resumes safely. Explicit logout attempts to flush and stays open if writing remains unresolved.
 
-All four themes and the configured IANA timezone persist independently through versioned owner preferences. Initial authenticated rendering uses the server theme. Settings feedback and conflicts remain separate from diary saves. Temporary original corner SVGs remain; asset finalization/deterministic theme/date arrangements are later scope. No rich text, uploads, shuffle, search, moods, analytics, collaboration or offline-first platform is included.
+All four themes and the configured IANA timezone persist independently through versioned owner preferences. Initial authenticated rendering uses the server theme. Settings feedback and conflicts remain separate from diary saves. Sixteen original CC0 SVG launch candidates use frozen, deterministic owner/date/theme arrangements. Mobile shows two corner accents; owner visual acceptance is pending. No rich text, uploads, shuffle, search, moods, analytics, collaboration or offline-first platform is included.
 
 ## Local setup
 
@@ -47,6 +49,7 @@ Install PostgreSQL server binaries and OpenSSL locally for disposable fixtures. 
 ```sh
 pnpm install --frozen-lockfile
 pnpm tokens:check
+pnpm decorations:check
 pnpm lint
 pnpm typecheck
 pnpm test

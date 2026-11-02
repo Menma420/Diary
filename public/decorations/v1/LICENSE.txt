@@ -1,0 +1,14 @@
+SPDX-License-Identifier: CC0-1.0
+
+Dear Diary Phase 8 original illustration collection (2026).
+These original, AI-assisted vector drawings were authored as project code.
+No third-party artwork, screenshot tracing, fonts or downloaded image data is included.
+To the extent copyright or related rights exist in these contributions, they are
+dedicated under CC0 1.0 Universal. Attribution is not required. No endorsement or
+warranty is implied. This dedication applies to the illustration sources in
+scripts/draw-decorations.mjs and the sixteen SVGs in this directory, not to the
+application, reference screenshot, or unrelated third-party material.
+
+Official dedication and legal code:
+https://creativecommons.org/publicdomain/zero/1.0/
+https://creativecommons.org/publicdomain/zero/1.0/legalcode.en

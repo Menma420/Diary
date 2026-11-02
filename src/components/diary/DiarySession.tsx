@@ -15,6 +15,7 @@ type NavigationFocus = { date: CalendarDate; source: HTMLElement; control: HTMLE
 type Session = {
   timeZone: string;
   active: boolean;
+  decorationScope: string;
   workspace: EditorWorkspace;
   persistence: SaveController | null;
   preferences: PreferenceController | null;
@@ -67,7 +68,7 @@ export function DiarySession({ timeZone, children, workspaceId, active = true, o
       document.documentElement.dataset.theme = DEFAULT_THEME;
     };
   }, []);
-  return <Context.Provider value={{ active, timeZone:preferenceState?.values.timezone??timeZone, workspace, persistence, preferences, focusRef, theme, setTheme }}>{preferenceState&&!preferenceState.server?<section aria-label="Appearance unavailable"><p role="status">Could not load appearance settings.</p><button onClick={()=>void preferences?.retry()}>Retry appearance</button></section>:children}</Context.Provider>;
+  return <Context.Provider value={{ active, decorationScope:workspaceId??"preview", timeZone:preferenceState?.values.timezone??timeZone, workspace, persistence, preferences, focusRef, theme, setTheme }}>{preferenceState&&!preferenceState.server?<section aria-label="Appearance unavailable"><p role="status">Could not load appearance settings.</p><button onClick={()=>void preferences?.retry()}>Retry appearance</button></section>:children}</Context.Provider>;
 }
 export function useDiarySession() {
   const session = useContext(Context);

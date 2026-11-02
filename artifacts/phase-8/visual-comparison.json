@@ -1,0 +1,128 @@
+[
+  {
+    "view": "diary-desktop-sakura-pink.png",
+    "paperAndEditorGeometryEqual": true,
+    "lineHeightEqual": true,
+    "overflow": false,
+    "unchangedRegionPixels": {
+      "header": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "date": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "writing": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      }
+    },
+    "intentionalChanges": "New original themed corner art; two mobile accents; original-artwork footer label"
+  },
+  {
+    "view": "diary-desktop-dreamy-sky.png",
+    "paperAndEditorGeometryEqual": true,
+    "lineHeightEqual": true,
+    "overflow": false,
+    "unchangedRegionPixels": {
+      "header": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "date": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "writing": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      }
+    },
+    "intentionalChanges": "New original themed corner art; two mobile accents; original-artwork footer label"
+  },
+  {
+    "view": "diary-desktop-lavender-dreams.png",
+    "paperAndEditorGeometryEqual": true,
+    "lineHeightEqual": true,
+    "overflow": false,
+    "unchangedRegionPixels": {
+      "header": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "date": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "writing": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      }
+    },
+    "intentionalChanges": "New original themed corner art; two mobile accents; original-artwork footer label"
+  },
+  {
+    "view": "diary-desktop-vintage-journal.png",
+    "paperAndEditorGeometryEqual": true,
+    "lineHeightEqual": true,
+    "overflow": false,
+    "unchangedRegionPixels": {
+      "header": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "date": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "writing": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      }
+    },
+    "intentionalChanges": "New original themed corner art; two mobile accents; original-artwork footer label"
+  },
+  {
+    "view": "diary-mobile-320-sakura-pink.png",
+    "paperAndEditorGeometryEqual": true,
+    "lineHeightEqual": true,
+    "overflow": false,
+    "unchangedRegionPixels": {
+      "header": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "date": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "writing": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      }
+    },
+    "intentionalChanges": "New original themed corner art; two mobile accents; original-artwork footer label"
+  },
+  {
+    "view": "diary-mobile-390-sakura-pink.png",
+    "paperAndEditorGeometryEqual": true,
+    "lineHeightEqual": true,
+    "overflow": false,
+    "unchangedRegionPixels": {
+      "header": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "date": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      },
+      "writing": {
+        "differentPixels": 0,
+        "maximumChannelDifference": 0
+      }
+    },
+    "intentionalChanges": "New original themed corner art; two mobile accents; original-artwork footer label"
+  }
+]

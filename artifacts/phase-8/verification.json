@@ -1,0 +1,173 @@
+{
+  "phase": 8,
+  "result": "passed",
+  "date": "2026-11-03",
+  "branch": "main",
+  "baseCommit": "0a5d4bb4e3d3ecfe8b59c7b74b84b59d624a7c81",
+  "node": "24.22.1",
+  "pnpm": "12.8.1",
+  "environment": "Local production build; disposable loopback TLS PostgreSQL 14.24; synthetic identities and local email sink",
+  "commands": {
+    "pnpm install --frozen-lockfile": "passed; lockfile unchanged",
+    "pnpm tokens:check": "passed; canonical CSS unchanged",
+    "pnpm decorations:check": "passed; original sources, frozen launch lock, safe SVG checks, compressed budget",
+    "pnpm lint": "passed; zero warnings",
+    "pnpm typecheck": "passed; Next typegen and strict TypeScript",
+    "pnpm test": {
+      "passed": 211,
+      "files": 15,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pnpm test:auth": {
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pnpm test:diary": {
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pnpm test:preferences": {
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pnpm build": "passed",
+    "pnpm check:client": {
+      "passed": true,
+      "assetsOrPayloads": 24
+    },
+    "pnpm test:e2e": {
+      "passed": 237,
+      "failed": 0,
+      "skipped": 0,
+      "duration": "5.3m",
+      "perProject": 79,
+      "projects": [
+        "chromium",
+        "mobile-chromium",
+        "mobile-390"
+      ],
+      "retries": 0
+    },
+    "repository secret audit": "passed; 375 files",
+    "git diff --check": "passed",
+    "new-file whitespace checks": "passed"
+  },
+  "accessibility": {
+    "axeScans": 66,
+    "violations": 0
+  },
+  "assets": {
+    "count": 16,
+    "format": "SVG",
+    "intrinsicDimensions": [
+      96,
+      96
+    ],
+    "rawCollectionBytes": 7058,
+    "maximumFourAssetGzipBytes": 1198,
+    "compressedBudgetBytes": 204800,
+    "manifestVersion": 1,
+    "arrangementVersion": 1,
+    "license": "CC0-1.0",
+    "ownerVisualAcceptance": "pending"
+  },
+  "visual": {
+    "dedicatedThemeDateViewportCaptures": 24,
+    "themes": 4,
+    "selectedDates": [
+      "31/10/2026",
+      "01/11/2026"
+    ],
+    "viewportWidths": [
+      1280,
+      390,
+      320
+    ],
+    "phase7ReferenceGeometryComparisons": 6,
+    "results": "artifacts/phase-8/visual-comparison.json"
+  },
+  "focusedVerification": {
+    "correctedCapture": {
+      "passed": 3,
+      "failed": 0,
+      "duration": "5.9s"
+    },
+    "correctedDateActivationRaceDesktopRepetitions": {
+      "passed": 6,
+      "failed": 0,
+      "duration": "19.0s"
+    }
+  },
+  "intermediateDiagnostics": {
+    "strictTypes": "New test Window typing corrected",
+    "firstFocused": {
+      "passed": 14,
+      "failed": 4,
+      "causes": "Initial-HTML assumption and early navigation assertion"
+    },
+    "subsequentFocused": {
+      "passed": 18,
+      "failed": 0,
+      "duration": "33.7s"
+    },
+    "firstFull": {
+      "passed": 235,
+      "failed": 2,
+      "cause": "Capture helper waited for intentionally hidden lazy images"
+    },
+    "stoppedDiagnostic": {
+      "passed": 87,
+      "failed": 1,
+      "interrupted": 1,
+      "notRun": 148,
+      "cause": "Read previous arrangement before client date activation; stopped gracefully and fixed explicit test barrier"
+    }
+  },
+  "dependenciesAdded": [],
+  "environmentVariablesAdded": [],
+  "databaseChanges": [],
+  "approvedPlanningDocumentsChanged": false,
+  "productionAccessOrChanges": false,
+  "realEmails": false,
+  "deployment": false,
+  "commit": false,
+  "push": false,
+  "phase9Started": false,
+  "phase10Started": false,
+  "remoteCI": "Not run; no commit/push authorized",
+  "publicationVerification": {
+    "authorization": "Owner requested Phase 8 commit and push",
+    "baseCommit": "0a5d4bb4e3d3ecfe8b59c7b74b84b59d624a7c81",
+    "result": "passed",
+    "node": "24.22.1",
+    "pnpm": "12.8.1",
+    "unitComponentPassed": 211,
+    "postgresqlAuthPassed": 14,
+    "postgresqlDiaryPassed": 10,
+    "postgresqlPreferencesPassed": 9,
+    "playwrightPassed": 237,
+    "playwrightFailed": 0,
+    "playwrightSkipped": 0,
+    "playwrightDuration": "5.5m",
+    "axeScans": 66,
+    "axeViolations": 0,
+    "checks": [
+      "frozen install",
+      "tokens",
+      "frozen decoration assets",
+      "lint",
+      "strict TypeScript",
+      "production build",
+      "client-output secret scan",
+      "repository secret audit",
+      "whitespace",
+      "six unchanged geometry/pixel comparisons"
+    ],
+    "remoteCI": "To be verified against the pushed SHA; result will be reported separately",
+    "productionOperations": false
+  }
+}

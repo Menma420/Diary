@@ -1,0 +1,19 @@
+{
+  "result": "passed",
+  "filesScanned": 375,
+  "configuredPrivateValuesPrinted": false,
+  "scope": "All tracked and nonignored untracked files including SVG, PNG and report bytes",
+  "personalData": "Only synthetic reserved example-domain fixtures",
+  "privateFiles": "Ignored and unstaged",
+  "unchanged": [
+    "approved plans",
+    "canonical tokens and generated CSS",
+    "date/auth/preference/entry APIs",
+    "migrations and environment",
+    "autosave and recovery core",
+    "Phase 1–7 artifacts"
+  ],
+  "productionAccess": false,
+  "gitDiffCheck": "passed",
+  "untrackedWhitespaceCheck": "passed"
+}

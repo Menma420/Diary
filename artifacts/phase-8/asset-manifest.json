@@ -1,0 +1,457 @@
+{
+  "manifestVersion": 1,
+  "arrangementVersion": 1,
+  "assets": [
+    {
+      "id": "lavender-cup-v1",
+      "path": "/decorations/v1/lavender-cup-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "lavender-dreams"
+      ],
+      "corners": [
+        "topLeft",
+        "bottomLeft"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 451,
+      "gzipBytes": 282,
+      "brotliBytes": 249,
+      "sha256": "388d77b8a7df15cf13225a2088bd915b699bc75fdcd0dcd84e7149b09a6c98d3"
+    },
+    {
+      "id": "lavender-moth-v1",
+      "path": "/decorations/v1/lavender-moth-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "lavender-dreams"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 472,
+      "gzipBytes": 294,
+      "brotliBytes": 256,
+      "sha256": "6f42ece81d0786971d4477c416c1a338f3dc3b01b1bdd52ee8316f75732c025b"
+    },
+    {
+      "id": "lavender-orbit-v1",
+      "path": "/decorations/v1/lavender-orbit-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "lavender-dreams"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 425,
+      "gzipBytes": 293,
+      "brotliBytes": 267,
+      "sha256": "351f4880527fc7866d6e0949d3200083c44b320d48cefff3c4b191133f027d20"
+    },
+    {
+      "id": "lavender-sprig-v1",
+      "path": "/decorations/v1/lavender-sprig-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "lavender-dreams"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 603,
+      "gzipBytes": 329,
+      "brotliBytes": 295,
+      "sha256": "13653613f9c850f5c12bc63bedf3db5f0dc0cd308e752b680f67221f06e5ed49"
+    },
+    {
+      "id": "sakura-berry-v1",
+      "path": "/decorations/v1/sakura-berry-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "sakura-pink"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 417,
+      "gzipBytes": 283,
+      "brotliBytes": 248,
+      "sha256": "a716f20c23a64de7137d6d19019b373cad79d773274ec5fbda68a65e2cf6da4f"
+    },
+    {
+      "id": "sakura-blossom-v1",
+      "path": "/decorations/v1/sakura-blossom-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "sakura-pink"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 399,
+      "gzipBytes": 284,
+      "brotliBytes": 256,
+      "sha256": "5628f82a7ad80de0c2bf882a7f6dc8bc77c563f56af743a0d6fa6a11cedef2ab"
+    },
+    {
+      "id": "sakura-bunny-v1",
+      "path": "/decorations/v1/sakura-bunny-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "sakura-pink"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 510,
+      "gzipBytes": 318,
+      "brotliBytes": 280,
+      "sha256": "fbd2d7a64673ca202d4aaef92575248dbbce5a523794b4f966c1d75c9c538ae9"
+    },
+    {
+      "id": "sakura-hearts-v1",
+      "path": "/decorations/v1/sakura-hearts-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "sakura-pink"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 441,
+      "gzipBytes": 297,
+      "brotliBytes": 257,
+      "sha256": "50e81a77dd05009301539ce4b5c3f0492b2c6865527f2f23b14df6032083a625"
+    },
+    {
+      "id": "sky-cloud-v1",
+      "path": "/decorations/v1/sky-cloud-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "dreamy-sky"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 377,
+      "gzipBytes": 261,
+      "brotliBytes": 228,
+      "sha256": "a59e3b46995a87e8d00b3962ebcfbe287263963e31b4f3f208c9ee7ee5469340"
+    },
+    {
+      "id": "sky-kite-v1",
+      "path": "/decorations/v1/sky-kite-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "dreamy-sky"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 356,
+      "gzipBytes": 253,
+      "brotliBytes": 220,
+      "sha256": "153376e112e434033564b57690c3f18e9b45e3ae75a028fd11f873c282d1fbb5"
+    },
+    {
+      "id": "sky-moon-v1",
+      "path": "/decorations/v1/sky-moon-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "dreamy-sky"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 364,
+      "gzipBytes": 261,
+      "brotliBytes": 229,
+      "sha256": "2ae0ff1e5e0fda752d031d1ce7334326f9c79963b57c460fbec8a87c0b129548"
+    },
+    {
+      "id": "sky-stars-v1",
+      "path": "/decorations/v1/sky-stars-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "dreamy-sky"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 414,
+      "gzipBytes": 281,
+      "brotliBytes": 243,
+      "sha256": "e640d738bc63a72a4878d343be4af406f8e28c5a829640e0e6d0d222dac25428"
+    },
+    {
+      "id": "vintage-book-v1",
+      "path": "/decorations/v1/vintage-book-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "vintage-journal"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 450,
+      "gzipBytes": 288,
+      "brotliBytes": 252,
+      "sha256": "53e389cdf46735f0dd643c3dccdef1259c60b1117773f5425ae93c4415cf6c83"
+    },
+    {
+      "id": "vintage-leaf-v1",
+      "path": "/decorations/v1/vintage-leaf-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "vintage-journal"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 390,
+      "gzipBytes": 269,
+      "brotliBytes": 236,
+      "sha256": "061516c422cd463e2bdf0ec02f6da6948db66836f66411454a57aa713a329112"
+    },
+    {
+      "id": "vintage-letter-v1",
+      "path": "/decorations/v1/vintage-letter-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "vintage-journal"
+      ],
+      "corners": [
+        "topLeft",
+        "topRight",
+        "bottomLeft",
+        "bottomRight"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 464,
+      "gzipBytes": 310,
+      "brotliBytes": 274,
+      "sha256": "2ebfb1d4f746b57ec8f84b2b06858fb7667fdf6959418c4af72e614a9418acf6"
+    },
+    {
+      "id": "vintage-teapot-v1",
+      "path": "/decorations/v1/vintage-teapot-v1.svg",
+      "width": 96,
+      "height": 96,
+      "themes": [
+        "vintage-journal"
+      ],
+      "corners": [
+        "topLeft",
+        "bottomLeft"
+      ],
+      "sizePercent": {
+        "min": 82,
+        "max": 90
+      },
+      "rotation": {
+        "min": -3,
+        "max": 3
+      },
+      "format": "svg",
+      "bytes": 525,
+      "gzipBytes": 323,
+      "brotliBytes": 287,
+      "sha256": "0de4d39746be9e72fd4c083e29a2cb313434c38de10746517822642afba62cd8"
+    }
+  ],
+  "compression": "Sum of individually gzip-compressed SVG responses; Brotli also recorded",
+  "maximumFourAssetGzipBytesByTheme": {
+    "sakura-pink": 1182,
+    "dreamy-sky": 1056,
+    "lavender-dreams": 1198,
+    "vintage-journal": 1190
+  }
+}

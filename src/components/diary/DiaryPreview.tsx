@@ -96,7 +96,7 @@ export function DiaryPreview({ date, mode = "editable" }: { date: CalendarDate; 
         <footer className={styles.footer}>
           <div>
             <p className={styles.caption}>A little space for your thoughts <span aria-hidden="true">♡</span></p>
-            <div className={styles.assetNote}><span>Temporary original illustrations</span><LogoutControl /><SettingsDialog /></div>
+            <div className={styles.assetNote}><span>Original illustrations</span><LogoutControl /><SettingsDialog /></div>
           </div>
           <SaveFeedback date={date} />
         </footer>
