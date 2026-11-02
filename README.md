@@ -2,8 +2,10 @@
 
 Private, single-owner plain-text diary built with Next.js App Router, strict TypeScript, CSS Modules, Zod, Neon PostgreSQL and self-managed Better Auth. The approved Sakura paper, four themes, compact navigation, native textarea and mobile layout remain. Dates display, accept input and route as **DD/MM/YYYY**, for example `/diary/01/11/2026`; internal calendar values remain `YYYY-MM-DD`. Today uses Asia/Kolkata. Supported calendar dates span years 0001–9999, with strict Gregorian validation.
 
-Phases 1–5 are the accepted baseline. Phase 6 persistence, autosave and mandatory IndexedDB recovery are implemented **locally for owner review**. No Phase 6 production migration, configuration, owner operation, deployment, commit or push is authorized. Phase 7 has not started. Approved source plans are in `documents/`; later owner decisions retain Neon/Better Auth rather than the original Supabase proposal.
+Phases 1–6 are the accepted baseline. Phase 7 persisted themes and timezone are implemented **locally for owner review**. Production migrations, configuration, owner operations, deployment, commit and push require separate approval. Phase 8 has not started. Approved source plans are in `documents/`; later owner decisions retain Neon/Better Auth rather than the original Supabase proposal.
 
+- [Phase 7 preferences contract](docs/phase-7-preferences.md)
+- [Phase 7 handoff](docs/phase-7-report.md)
 - [Phase 6 handoff and verification](docs/phase-6-report.md)
 - [Persistence, API, recovery and operational contracts](docs/phase-6-persistence-and-recovery.md)
 - [Phase 5 authentication handoff](docs/phase-5-report.md)
@@ -18,7 +20,7 @@ IndexedDB preserves unresolved writing by opaque owner workspace scope, date and
 
 Authentication remains email/password, closed registration, one operator-bound verified owner and database-backed sessions lasting at most seven days. Every private server operation independently resolves the owner. Public signup is disabled; no browser-supplied identity is trusted. Session expiry retains/locks the mounted editor; same-owner login resumes safely. Explicit logout attempts to flush and stays open if writing remains unresolved.
 
-Themes remain volatile previews until Phase 7. Temporary original corner SVGs remain; asset finalization/deterministic theme/date arrangements are later scope. No rich text, uploads, shuffle, search, moods, analytics, collaboration or offline-first platform is included.
+All four themes and the configured IANA timezone persist independently through versioned owner preferences. Initial authenticated rendering uses the server theme. Settings feedback and conflicts remain separate from diary saves. Temporary original corner SVGs remain; asset finalization/deterministic theme/date arrangements are later scope. No rich text, uploads, shuffle, search, moods, analytics, collaboration or offline-first platform is included.
 
 ## Local setup
 
@@ -50,6 +52,7 @@ pnpm typecheck
 pnpm test
 pnpm test:auth
 pnpm test:diary
+pnpm test:preferences
 pnpm build
 pnpm check:client
 pnpm exec playwright install chromium
@@ -83,6 +86,6 @@ The legacy Phase 1 Supabase environment validators/sentinels are retained for re
 
 ## Migrations and production
 
-Auth migrations live in `migrations/auth/`; Phase 6 diary migration is `migrations/diary/001_entries.sql`. They are not applied at startup, during builds or by tests against production. `AUTH_DATABASE_URL` and `DIARY_DATABASE_URL` must have separate least-privileged LOGIN principals. Runtime checks inspect effective privileges and reject operator connections, ownership changes, DDL and inappropriate cross-service capabilities.
+Auth migrations live in `migrations/auth/`; diary migrations are `migrations/diary/001_entries.sql` and Phase 7 `migrations/diary/002_preferences.sql`. They are not applied at startup, during builds or by tests against production. `AUTH_DATABASE_URL` and `DIARY_DATABASE_URL` must have separate least-privileged LOGIN principals. Runtime checks inspect effective privileges and reject operator connections, ownership changes, DDL and inappropriate cross-service capabilities.
 
 Existing `.neon` project context and `.env.local` are ignored and must stay local. Do not run `neon deploy`, apply production SQL, change hosted secrets, provision accounts or deploy the frontend as part of local Phase 6 verification. The [Phase 6 operational checklist](docs/phase-6-persistence-and-recovery.md) covers future separately authorized migration/role setup, backup/rollback and retention considerations. Never drop server history or reset IndexedDB as an automatic repair.

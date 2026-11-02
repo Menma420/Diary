@@ -1,0 +1,70 @@
+[
+  {
+    "theme": "sakura-pink",
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 1005,
+      "height": 502
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 949,
+      "height": 230
+    },
+    "overflow": false,
+    "lineHeight": "44px"
+  },
+  {
+    "theme": "dreamy-sky",
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 1005,
+      "height": 502
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 949,
+      "height": 230
+    },
+    "overflow": false,
+    "lineHeight": "44px"
+  },
+  {
+    "theme": "lavender-dreams",
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 1005,
+      "height": 502
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 949,
+      "height": 230
+    },
+    "overflow": false,
+    "lineHeight": "44px"
+  },
+  {
+    "theme": "vintage-journal",
+    "paper": {
+      "x": 24,
+      "y": 80,
+      "width": 1005,
+      "height": 502
+    },
+    "editor": {
+      "x": 52,
+      "y": 235,
+      "width": 949,
+      "height": 230
+    },
+    "overflow": false,
+    "lineHeight": "44px"
+  }
+]

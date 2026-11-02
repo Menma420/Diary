@@ -1,0 +1,46 @@
+{
+  "environment": "Disposable loopback PostgreSQL only",
+  "version": "14.24 (Ubuntu 14.24-0ubuntu0.22.04.1)",
+  "guards": "passed",
+  "permissions": {
+    "read_function": true,
+    "write_function": true,
+    "direct_preferences": false,
+    "preference_columns": false,
+    "direct_receipts": false,
+    "owner_binding": false,
+    "schema_create": false
+  },
+  "tables": [
+    {
+      "relname": "preference_mutations",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "owner": "diary_data_owner"
+    },
+    {
+      "relname": "preferences",
+      "relrowsecurity": true,
+      "relforcerowsecurity": true,
+      "owner": "diary_data_owner"
+    }
+  ],
+  "functions": [
+    {
+      "proname": "read_preferences",
+      "prosecdef": true,
+      "proconfig": [
+        "search_path=pg_catalog, pg_temp"
+      ],
+      "owner": "diary_data_owner"
+    },
+    {
+      "proname": "write_preferences",
+      "prosecdef": true,
+      "proconfig": [
+        "search_path=pg_catalog, pg_temp"
+      ],
+      "owner": "diary_data_owner"
+    }
+  ]
+}

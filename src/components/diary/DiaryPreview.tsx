@@ -11,6 +11,7 @@ import styles from "./DiaryPreview.module.css";
 import { useDiaryEditor } from "./useDiaryEditor";
 import type { EditorMode } from "@/lib/diary/editor-model";
 import { SaveFeedback, RecoveryNotice } from "./SaveFeedback";
+import { SettingsDialog } from "@/components/settings/SettingsDialog";
 import { LogoutControl } from "@/components/auth/SessionControls";
 
 type Selection = { start: number; end: number; direction: "forward" | "backward" | "none"; control: HTMLElement };
@@ -95,7 +96,7 @@ export function DiaryPreview({ date, mode = "editable" }: { date: CalendarDate; 
         <footer className={styles.footer}>
           <div>
             <p className={styles.caption}>A little space for your thoughts <span aria-hidden="true">♡</span></p>
-            <p className={styles.assetNote}><span>Temporary original illustrations</span><LogoutControl /></p>
+            <div className={styles.assetNote}><span>Temporary original illustrations</span><LogoutControl /><SettingsDialog /></div>
           </div>
           <SaveFeedback date={date} />
         </footer>

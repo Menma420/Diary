@@ -7,6 +7,7 @@ const { redirect, notFound } = vi.hoisted(() => ({ redirect: vi.fn((url: string)
 vi.mock("next/navigation", () => ({ redirect, notFound, useRouter: () => ({ push: vi.fn() }) }));
 vi.mock("@/lib/env.server", () => ({ getServerEnvironment: () => ({ DEFAULT_TIMEZONE: "Asia/Kolkata" }) }));
 vi.mock("@/lib/auth/auth.server", () => ({ publicAccess: () => ({ kind: "owner", workspaceId: "w1_synthetic", expiresAt: "2027-01-01T00:00:00Z", checkedAt: "2026-11-01T00:00:00Z" }), ownerResult: async () => ({ kind: "owner", owner: { ownerId: "11111111-1111-4111-8111-111111111111", expiresAt: "2027-01-01T00:00:00Z" } }) }));
+vi.mock("@/lib/preferences/presentation.server", () => ({ ownerPresentation:async()=>({access:{kind:"owner"},preferences:{kind:"loaded",preferences:{theme:"sakura-pink",timezone:"Asia/Kolkata",version:0,lastMutationId:null,createdAt:null,updatedAt:null}}}) }));
 afterEach(() => vi.useRealTimers());
 
 it("both index routes compute request-time Today from configured timezone", async () => {

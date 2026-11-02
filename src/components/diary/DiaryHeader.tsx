@@ -43,7 +43,7 @@ export function DiaryHeader({ date, timeZone, calendarTrigger, theme, onRemember
             <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3" /><path d="M7 2v6M17 2v6M3 11h18M7 15h3M14 15h3" /></svg>
           </button>
         </nav>
-        <label className={styles.appearance} title="Preview a theme">
+        <label className={styles.appearance} title="Choose a theme">
           <svg width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.4" aria-hidden="true">
             <path d="M12 3a9 9 0 1 0 0 18h1.2a2 2 0 0 0 1.4-3.4 1.5 1.5 0 0 1 1-2.6H18a3 3 0 0 0 3-3 9 9 0 0 0-9-9Z" />
             <circle cx="7.5" cy="10" r="1" fill="currentColor" /><circle cx="11" cy="6.8" r="1" fill="currentColor" />

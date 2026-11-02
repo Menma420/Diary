@@ -73,7 +73,7 @@ test("256 KiB UTF-8 limit is enforced by API contract and database; empty clear 
  assert.equal(entry.exists,true); assert.equal(entry.content,""); assert.equal(entry.version,2);
 });
 test("functions use a fixed safe search path; RLS forced; direct duplicate rows are impossible",async()=>{
- const {rows}=await fixture.admin.query("SELECT p.prosecdef,p.proconfig FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='diary'");
+ const {rows}=await fixture.admin.query("SELECT p.prosecdef,p.proconfig FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='diary' AND p.proname IN ('read_entry','write_entry')");
  assert.equal(rows.length,2); for (const r of rows) { assert.equal(r.prosecdef,true); assert.deepEqual(r.proconfig,["search_path=pg_catalog, pg_temp"]); }
  const tables=await fixture.admin.query("SELECT relrowsecurity,relforcerowsecurity FROM pg_class c JOIN pg_namespace n ON n.oid=c.relnamespace WHERE n.nspname='diary' AND c.relkind='r'");
  for (const row of tables.rows) { assert.equal(row.relrowsecurity,true); assert.equal(row.relforcerowsecurity,true); }

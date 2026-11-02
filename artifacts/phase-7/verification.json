@@ -1,0 +1,73 @@
+{
+  "phase": 7,
+  "result": "passed",
+  "branch": "main",
+  "baseCommit": "0122ee34fee82ed7a25f0e64fb051948b1dcf8d2",
+  "environment": "Local production build and disposable loopback TLS PostgreSQL 14.24, synthetic users/mail",
+  "node": "24.22.1",
+  "pnpm": "12.8.1",
+  "commands": {
+    "pnpm install --frozen-lockfile": "passed; unchanged lockfile",
+    "pnpm tokens:check": "passed",
+    "pnpm lint": "passed; zero warnings",
+    "pnpm typecheck": "passed",
+    "pnpm test": {
+      "passed": 190,
+      "failed": 0,
+      "skipped": 0,
+      "files": 13
+    },
+    "pnpm test:auth": {
+      "passed": 14,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pnpm test:diary": {
+      "passed": 10,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pnpm test:preferences": {
+      "passed": 9,
+      "failed": 0,
+      "skipped": 0
+    },
+    "pnpm build": "passed",
+    "pnpm check:client": {
+      "passed": true,
+      "assetsOrPayloads": 24
+    },
+    "pnpm test:e2e": {
+      "passed": 219,
+      "failed": 0,
+      "skipped": 0,
+      "perProject": 73,
+      "projects": [
+        "chromium",
+        "mobile-chromium",
+        "mobile-390"
+      ],
+      "duration": "5.0m"
+    },
+    "git diff --check": "passed"
+  },
+  "accessibility": {
+    "axeScans": 54,
+    "violations": 0
+  },
+  "migration": {
+    "path": "migrations/diary/002_preferences.sql",
+    "sha256": "9e08c9a3e254d6aacb57b056ac21a91c058097c6f4ab5d41a15099135c3ff29d",
+    "appliedOnlyToDisposableFixtures": true
+  },
+  "dependenciesAdded": [],
+  "dependenciesUpgraded": [],
+  "noProductionAccessOrChanges": true,
+  "noOwnerOperations": true,
+  "noRealEmails": true,
+  "noDeployment": true,
+  "noCommit": true,
+  "noPush": true,
+  "phase8Started": false,
+  "remoteCI": "Not run; no publication authorized"
+}

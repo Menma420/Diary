@@ -31,11 +31,15 @@ export async function assertDiaryRuntime(connection: Pool) {
       WHERE n.nspname='diary' AND c.relkind IN ('r','p') AND (NOT c.relrowsecurity OR NOT c.relforcerowsecurity OR r.rolname<>'diary_data_owner'))
     OR has_function_privilege(current_user,'diary.read_entry(uuid,date)','EXECUTE WITH GRANT OPTION')
     OR has_function_privilege(current_user,'diary.write_entry(uuid,date,text,bigint,uuid)','EXECUTE WITH GRANT OPTION')
+    OR has_function_privilege(current_user,'diary.read_preferences(uuid)','EXECUTE WITH GRANT OPTION')
+    OR has_function_privilege(current_user,'diary.write_preferences(uuid,text,text,bigint,uuid)','EXECUTE WITH GRANT OPTION')
+    OR NOT has_function_privilege(current_user,'diary.read_preferences(uuid)','EXECUTE')
+    OR NOT has_function_privilege(current_user,'diary.write_preferences(uuid,text,text,bigint,uuid)','EXECUTE')
     OR NOT has_function_privilege(current_user,'diary.read_entry(uuid,date)','EXECUTE')
     OR NOT has_function_privilege(current_user,'diary.write_entry(uuid,date,text,bigint,uuid)','EXECUTE')
     OR (SELECT count(*) FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace
-      JOIN pg_roles r ON r.oid=p.proowner WHERE n.nspname='diary' AND p.proname IN ('read_entry','write_entry')
-      AND p.prosecdef AND p.proconfig @> ARRAY['search_path=pg_catalog, pg_temp'] AND r.rolname='diary_data_owner')<>2
+      JOIN pg_roles r ON r.oid=p.proowner WHERE n.nspname='diary' AND p.proname IN ('read_entry','write_entry','read_preferences','write_preferences')
+      AND p.prosecdef AND p.proconfig @> ARRAY['search_path=pg_catalog, pg_temp'] AND r.rolname='diary_data_owner')<>4
     AS unsafe`);
   if (rows.length !== 1 || rows[0]?.unsafe !== false) throw new Error("Diary runtime privileges are unsafe");
 }

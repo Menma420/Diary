@@ -3,6 +3,7 @@ import { createContext, useCallback, useContext, useEffect, useLayoutEffect, use
 import { useRouter } from "next/navigation";
 import { z } from "zod";
 import type { PublicAccess } from "@/lib/auth/owner";
+import { defaultSnapshot,type PreferenceRead } from "@/lib/preferences/contracts";
 import type { SaveController } from "@/lib/diary/save-controller";
 import type { CalendarDate } from "@/lib/dates";
 import { DiarySession } from "@/components/diary/DiarySession";
@@ -21,7 +22,7 @@ export function DiaryRoute({ date, access }: { date: CalendarDate; access: Publi
   useLayoutEffect(() => { activate?.(date, access); }, [activate, date, access]);
   return null;
 }
-export function DiaryAccess({ initial, timeZone, children }: { initial: PublicAccess; timeZone: string; children: ReactNode }) {
+export function DiaryAccess({ initial, timeZone, children, initialPreferences={kind:"loaded",preferences:defaultSnapshot()} }: { initial: PublicAccess; timeZone: string; children: ReactNode; initialPreferences?:PreferenceRead }) {
   const router = useRouter();
   const persistence = useRef<SaveController | null>(null);
   const [workspaceId, setWorkspaceId] = useState(initial.kind === "owner" ? initial.workspaceId : null);
@@ -102,7 +103,7 @@ export function DiaryAccess({ initial, timeZone, children }: { initial: PublicAc
   }
   return <RouteContext.Provider value={activate}>
     {children}
-    {workspaceId && <DiarySession key={workspaceId} timeZone={timeZone} workspaceId={workspaceId} active={permitted} onLock={lockOwner} controllerRef={persistence}>
+    {workspaceId && <DiarySession key={workspaceId} timeZone={timeZone} initialPreferences={initialPreferences} workspaceId={workspaceId} active={permitted} onLock={lockOwner} controllerRef={persistence}>
       <LogoutContext.Provider value={() => { setLogoutError(""); dialog.current?.showModal(); }}>
         <div inert={!permitted} aria-hidden={!permitted} style={!permitted ? { visibility: "hidden" } : undefined}>
           {date && <DiaryPreview key={date} date={date} mode={permitted ? "editable" : "read-only"} />}

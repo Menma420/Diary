@@ -59,6 +59,8 @@ jobs:
         run: pnpm test:auth
       - name: Diary migration, permissions and concurrency tests
         run: pnpm test:diary
+      - name: Preference migration, permissions and concurrency tests
+        run: pnpm test:preferences
       - name: Production build
         run: pnpm build
       - name: Verify server configuration is absent from client output

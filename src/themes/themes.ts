@@ -2,8 +2,10 @@ import { z } from "zod";
 import tokens from "./tokens.json";
 
 const color = z.string().regex(/^#[0-9A-F]{6}$/);
+import { themeIdSchema } from "./theme-id";
+export { themeIdSchema } from "./theme-id";
 const themeSchema = z.object({
-  id: z.enum(["sakura-pink", "dreamy-sky", "lavender-dreams", "vintage-journal"]),
+  id: themeIdSchema,
   name: z.string().min(1),
   decorationCollectionId: z.string().min(1),
   background: color, paper: color, paperBorder: color, line: color,

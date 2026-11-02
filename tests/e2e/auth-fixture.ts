@@ -13,7 +13,7 @@ export async function resetLimits() { const pool = await fixtureAdmin(); try { a
 export const test = base.extend<{ authenticatedOwner: void }>({
   authenticatedOwner: [async ({ context }, provide) => {
     await resetLimits();
-    const admin=await fixtureAdmin(); try { await admin.query("TRUNCATE diary.entries, diary.mutations"); } finally { await admin.end(); }
+    const admin=await fixtureAdmin(); try { await admin.query("TRUNCATE diary.entries, diary.mutations, diary.preferences, diary.preference_mutations"); } finally { await admin.end(); }
     const response = await context.request.post("/api/auth/sign-in/email", { headers: { origin: "http://127.0.0.1:3100" }, data: { email, password } });
     expect(response.status()).toBe(200);
     await provide();

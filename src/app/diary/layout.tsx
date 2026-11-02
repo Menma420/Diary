@@ -1,8 +1,9 @@
 import { DiaryAccess } from "@/components/auth/DiaryAccess";
-import { ownerResult } from "@/lib/auth/auth.server";
+import { ownerPresentation } from "@/lib/preferences/presentation.server";
 import { publicAccess } from "@/lib/auth/auth.server";
-import { getServerEnvironment } from "@/lib/env.server";
+
 
 export default async function DiaryLayout({ children }: { children: React.ReactNode }) {
-  return <DiaryAccess initial={publicAccess(await ownerResult())} timeZone={getServerEnvironment().DEFAULT_TIMEZONE}>{children}</DiaryAccess>;
+  const { access,preferences }=await ownerPresentation();
+  return <DiaryAccess initial={publicAccess(access)} initialPreferences={preferences} timeZone="Asia/Kolkata">{children}</DiaryAccess>;
 }

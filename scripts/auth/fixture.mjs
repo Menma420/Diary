@@ -58,6 +58,7 @@ export async function startFixture() {
     await admin.query(sql);
     await admin.query(await readFile("migrations/auth/002_owner_and_limits.sql", "utf8"));
     await admin.query(await readFile("migrations/diary/001_entries.sql", "utf8"));
+    await admin.query(await readFile("migrations/diary/002_preferences.sql", "utf8"));
     await admin.query(`CREATE ROLE diary_entry_fixture LOGIN PASSWORD '${dbPassword}' IN ROLE diary_entry_runtime`);
     await admin.query("GRANT CONNECT ON DATABASE diary_auth_test TO diary_entry_runtime");
     // Random fixture-only login credentials; never emitted or written into the repo.

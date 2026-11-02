@@ -1,0 +1,8 @@
+.link { padding: 0 .5rem; margin: -1.125rem 0 -1.125rem .25rem; min-height: 2.75rem; min-width: 2.75rem; vertical-align: middle; border: 0; background: transparent; color: inherit; font: inherit; text-decoration: underline; cursor: pointer; }
+.status { position: absolute; top: calc(100% + 1px); left: 0; max-width: 100%; font-size: 0.625rem; line-height: 1.1; }
+.dialog { max-height: 85dvh; overflow-y: auto; }
+.dialog input:not([type=radio]) { display: block; width: 100%; padding: 0.65rem; border: 1px solid var(--color-paper-border); border-radius: var(--radius-control); background: var(--color-paper); color: var(--color-text); font: inherit; }
+.themes { display: grid; gap: 0.5rem; padding: 0; border: 0; }
+.themes legend { margin-bottom: 0.5rem; }
+.choice { display: flex; align-items: center; gap: 0.75rem; min-height: var(--touch-target); padding: 0.5rem; border: 1px solid; border-radius: var(--radius-control); cursor: pointer; }
+.choice input { accent-color: var(--color-accent-strong); }

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { getServerEnvironment } from "@/lib/env.server";
+import { ownerPresentation } from "@/lib/preferences/presentation.server";
 import { DEFAULT_THEME } from "@/themes/themes";
 import "./globals.css";
 import "@/themes/themes.css";
@@ -10,7 +11,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default async function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   getServerEnvironment();
-  return <html lang="en" data-theme={DEFAULT_THEME}><body>{children}</body></html>;
+  const { preferences }=await ownerPresentation();
+  return <html lang="en" data-theme={preferences.kind==="loaded"?preferences.preferences.theme:DEFAULT_THEME}><body>{children}</body></html>;
 }

@@ -54,7 +54,7 @@ test("another device advances server; conflict retains both versions and deliber
  await open(page);expect((await put(context.request,"Other device")).status()).toBe(200);await editor(page).fill("My local writing");await expect(page.locator("#preview-notice")).toHaveText("Conflict · review writing");
  expect((await records(page))[0]?.content).toBe("My local writing");expect((await read(context.request)).content).toBe("Other device");await expect(editor(page)).not.toBeEditable();await page.getByRole("button",{name:/Review conflict/}).click();
  const dialog=page.getByRole("dialog");await expect(dialog).toContainText("Other device");await expect(dialog).toContainText("My local writing");expect((await new AxeBuilder({page}).withTags(["wcag2a","wcag2aa"]).analyze()).violations).toEqual([]);
- await page.screenshot({path:`artifacts/phase-6/conflict-${info.project.name}.png`,fullPage:true});
+ await page.screenshot({path:`artifacts/phase-7/conflict-${info.project.name}.png`,fullPage:true});
  await dialog.getByRole("button",{name:/Keep local writing 1/}).click();await saved(page);expect(await read(context.request)).toMatchObject({content:"My local writing",version:2});await expect(editor(page)).toHaveValue("My local writing");
 });
 test("server advances again while conflict is open; choice requires renewed review",async({page,context})=>{
@@ -94,7 +94,7 @@ for(const failure of ["quota","transaction","schema","blocked"] as const)test(`$
  },failure);
  await open(page);await editor(page).fill(`Memory survives ${failure}`);await expect(page.getByText("Recovery unavailable · keep this tab open")).toBeVisible();await expect(page.getByText("Draft stored on this device",{exact:true})).toHaveCount(0);
  await expect(page.locator("#preview-notice")).toHaveText("Saved");await expect(editor(page)).toHaveValue(`Memory survives ${failure}`);expect(await read(context.request)).toMatchObject({content:`Memory survives ${failure}`,version:1});
- if(failure==="quota")await page.screenshot({path:`artifacts/phase-6/recovery-unavailable-${info.project.name}.png`,fullPage:true});
+ if(failure==="quota")await page.screenshot({path:`artifacts/phase-7/recovery-unavailable-${info.project.name}.png`,fullPage:true});
 });
 test("local-only recovery never says Saved; failed logout flush preserves writing and pending metadata",async({page,context})=>{
  await page.route("**/api/entries/**",route=>route.request().method()==="PUT"?route.fulfill({status:503,json:{error:"Synthetic network outage"}}):route.continue());

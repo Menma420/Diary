@@ -12,7 +12,7 @@ const httpOrigin = z.url().refine((value) => {
 }, "Must be an HTTP(S) origin without credentials, path, query, or fragment")
   .transform((value) => new URL(value).origin);
 
-const timezone = z.string().min(1).refine((value) => {
+export const timezoneSchema = z.string().min(1).refine((value) => {
   if (!/^[A-Za-z_]+(?:\/[A-Za-z0-9_+.-]+)*$/.test(value)) return false;
   try {
     new Intl.DateTimeFormat("en", { timeZone: value });
@@ -24,7 +24,7 @@ const timezone = z.string().min(1).refine((value) => {
 
 const foundationSchema = z.object({
   APP_ORIGIN: httpOrigin,
-  DEFAULT_TIMEZONE: timezone.default("Asia/Kolkata"),
+  DEFAULT_TIMEZONE: timezoneSchema.default("Asia/Kolkata"),
 });
 
 const integrationSchema = foundationSchema.extend({
